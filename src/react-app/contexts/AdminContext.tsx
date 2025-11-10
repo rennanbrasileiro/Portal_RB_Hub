@@ -92,6 +92,9 @@ interface AdminContextType {
   addGalleryImage: (image: SiteConfig['gallery']['beforeAfterImages'][0]) => void;
   updateGalleryImage: (id: string, image: Partial<SiteConfig['gallery']['beforeAfterImages'][0]>) => void;
   deleteGalleryImage: (id: string) => void;
+  addFAQ: (faq: SiteConfig['faq'][0]) => void;
+  updateFAQ: (id: string, faq: Partial<SiteConfig['faq'][0]>) => void;
+  deleteFAQ: (id: string) => void;
 }
 
 const DEFAULT_CONFIG: SiteConfig = {
