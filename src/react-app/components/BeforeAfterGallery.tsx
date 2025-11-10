@@ -125,48 +125,18 @@ export default function BeforeAfterGallery() {
                       index === currentIndex 
                         ? 'w-8 bg-gradient-to-r from-cyan-500 to-blue-600' 
                         : `w-2 ${
-                        isDark 
-                          ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30' 
-                          : 'bg-cyan-50 text-cyan-700 border border-cyan-200'
-                      }`}
-                    >
-                      {service}
-                    </span>
-                  ))}
-                </div>
+                        isDark ? 'bg-slate-700' : 'bg-gray-300'
+                      }`
+                    }`}
+                  />
+                ))}
               </div>
 
-              {/* Results */}
-              <div className="mb-6">
-                <h4 className={`font-bold mb-3 ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                  Resultados Alcançados
-                </h4>
-                <div className="space-y-2">
-                  {current.results.map((result, index) => (
-                    <div key={index} className="flex items-center space-x-3">
-                      <TrendingUp className={`w-4 h-4 ${isDark ? 'text-green-400' : 'text-green-600'}`} />
-                      <span className={`${isDark ? 'text-slate-300' : 'text-gray-700'}`}>
-                        {result}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Investment Info */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className={`p-4 rounded-xl ${isDark ? 'bg-slate-800/50' : 'bg-gray-50'}`}>
-                  <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-gray-600'}`}>Investimento</p>
-                  <p className={`font-bold text-lg ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                    {current.investment}
-                  </p>
-                </div>
-                <div className={`p-4 rounded-xl ${isDark ? 'bg-slate-800/50' : 'bg-gray-50'}`}>
-                  <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-gray-600'}`}>Prazo</p>
-                  <p className={`font-bold text-lg ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                    {current.duration}
-                  </p>
-                </div>
+              {/* Call to Action */}
+              <div className={`p-4 rounded-xl ${isDark ? 'bg-cyan-500/20' : 'bg-cyan-50'}`}>
+                <p className={`text-sm ${isDark ? 'text-cyan-300' : 'text-cyan-700'}`}>
+                  ✨ <strong>Transforme seu condomínio também!</strong> Entre em contato para saber mais sobre nossos serviços.
+                </p>
               </div>
             </div>
           </div>
