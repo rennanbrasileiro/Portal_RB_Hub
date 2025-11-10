@@ -263,7 +263,7 @@ export default function AdvancedProposalSystem({ onClose }: AdvancedProposalSyst
                 <div className="flex items-center space-x-4">
                   <input
                     type="range"
-                    min="5"
+                    min="1"
                     max="500"
                     value={condominiumUnits}
                     onChange={(e) => setCondominiumUnits(parseInt(e.target.value))}
