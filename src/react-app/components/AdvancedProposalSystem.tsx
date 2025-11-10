@@ -751,8 +751,8 @@ Aguardo retorno para agendamento de visita técnica.
   ];
 
   return (
-    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className={`rounded-3xl max-w-6xl w-full max-h-[95vh] overflow-hidden shadow-2xl ${
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4">
+      <div className={`rounded-3xl max-w-6xl w-full max-h-[96vh] flex flex-col shadow-2xl ${
         isDark ? 'bg-slate-900' : 'bg-white'
       }`}>
         {/* Header */}
