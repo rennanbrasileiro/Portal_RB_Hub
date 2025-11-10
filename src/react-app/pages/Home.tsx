@@ -61,6 +61,23 @@ export default function Home() {
   const { isAuthenticated, isMaster } = useAuth();
   const { siteConfig, isSectionEnabled } = useAdmin();
 
+  // Configs seguras com fallback para evitar tela branca
+  const defaultHeroConfig = {
+    title: 'RB HUB Soluções Condominiais',
+    subtitle: 'Gestão inteligente, transparente e integrada para seu condomínio.',
+    ctaText: 'Montar minha proposta',
+    ctaSecondaryText: 'Falar com especialista',
+    backgroundImage: undefined,
+  };
+
+  const heroConfig = {
+    ...defaultHeroConfig,
+    ...(siteConfig?.heroConfig || {}),
+  };
+
+  const socialMedia = siteConfig?.socialMedia || {};
+  const testimonials = siteConfig?.testimonials || [];
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -137,9 +154,6 @@ export default function Home() {
     { icon: Zap, text: 'Processos Ágeis', desc: 'Eficiência em todas as operações' },
     { icon: FileCheck, text: 'Gestão Transparente', desc: 'Relatórios detalhados mensais' },
   ];
-
-  // Usar depoimentos do AdminContext
-  const testimonials = siteConfig.testimonials;
 
   const stats = [
     { number: "150+", label: "Condomínios Atendidos" },
@@ -284,10 +298,10 @@ export default function Home() {
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         {/* Background Image (if configured) */}
-        {siteConfig.heroConfig.backgroundImage && (
+        {heroConfig.backgroundImage && (
           <div 
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${siteConfig.heroConfig.backgroundImage})` }}
+            style={{ backgroundImage: `url(${heroConfig.backgroundImage})` }}
           >
             <div className={`absolute inset-0 ${
               isDark ? 'bg-black/70' : 'bg-white/70'
@@ -296,7 +310,7 @@ export default function Home() {
         )}
         
         {/* Gradient overlays (if no background image) */}
-        {!siteConfig.heroConfig.backgroundImage && (
+        {!heroConfig.backgroundImage && (
           <>
             <div className={`absolute inset-0 ${
               isDark 
@@ -323,16 +337,16 @@ export default function Home() {
             <h1 className={`text-5xl sm:text-6xl lg:text-7xl font-black leading-tight ${
               isDark ? 'text-white' : 'text-gray-900'
             }`}>
-              {siteConfig.heroConfig.title.split(' ').slice(0, -2).join(' ')}
+              {heroConfig.title.split(' ').slice(0, -2).join(' ')}
               <span className="text-gradient from-cyan-500 via-blue-600 to-purple-600 block mt-2">
-                {siteConfig.heroConfig.title.split(' ').slice(-2).join(' ')}
+                {heroConfig.title.split(' ').slice(-2).join(' ')}
               </span>
             </h1>
             
             <p className={`text-xl sm:text-2xl max-w-4xl mx-auto leading-relaxed font-manrope ${
               isDark ? 'text-slate-300' : 'text-gray-600'
             }`}>
-              {siteConfig.heroConfig.subtitle}
+              {heroConfig.subtitle}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
@@ -344,7 +358,7 @@ export default function Home() {
                   }`}
                   data-testid="hero-cta-primary"
                 >
-                  <span>{siteConfig.heroConfig.ctaText}</span>
+                  <span>{heroConfig.ctaText}</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
                 <button
@@ -356,7 +370,7 @@ export default function Home() {
                   }`}
                   data-testid="hero-cta-secondary"
                 >
-                  {siteConfig.heroConfig.ctaSecondaryText}
+                  {heroConfig.ctaSecondaryText}
                 </button>
               </div>
               <a
@@ -795,9 +809,9 @@ export default function Home() {
               Siga-nos nas Redes Sociais
             </h3>
             <div className="flex justify-center space-x-6">
-              {siteConfig.socialMedia.facebook && (
+              {socialMedia.facebook && (
                 <a
-                  href={siteConfig.socialMedia.facebook}
+                  href={socialMedia.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`p-4 rounded-2xl transition-all duration-300 hover:scale-110 ${
@@ -808,9 +822,9 @@ export default function Home() {
                   <Facebook className={`w-6 h-6 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
                 </a>
               )}
-              {siteConfig.socialMedia.instagram && (
+              {socialMedia.instagram && (
                 <a
-                  href={siteConfig.socialMedia.instagram}
+                  href={socialMedia.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`p-4 rounded-2xl transition-all duration-300 hover:scale-110 ${
@@ -821,9 +835,9 @@ export default function Home() {
                   <Instagram className={`w-6 h-6 ${isDark ? 'text-pink-400' : 'text-pink-600'}`} />
                 </a>
               )}
-              {siteConfig.socialMedia.linkedin && (
+              {socialMedia.linkedin && (
                 <a
-                  href={siteConfig.socialMedia.linkedin}
+                  href={socialMedia.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`p-4 rounded-2xl transition-all duration-300 hover:scale-110 ${
@@ -834,9 +848,9 @@ export default function Home() {
                   <Linkedin className={`w-6 h-6 ${isDark ? 'text-blue-400' : 'text-blue-600'}`} />
                 </a>
               )}
-              {siteConfig.socialMedia.youtube && (
+              {socialMedia.youtube && (
                 <a
-                  href={siteConfig.socialMedia.youtube}
+                  href={socialMedia.youtube}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`p-4 rounded-2xl transition-all duration-300 hover:scale-110 ${

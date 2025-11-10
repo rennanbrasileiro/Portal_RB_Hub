@@ -31,14 +31,83 @@ import { useToast } from '@/react-app/hooks/useToast';
 import { ToastContainer } from '@/react-app/components/ToastNotification';
 import ThemeToggle from '@/react-app/components/ThemeToggle';
 
+// Configuração padrão segura para evitar undefined
+const defaultSiteConfig = {
+  companyName: '',
+  companyEmail: '',
+  companyPhone: '',
+  whatsappNumber: '',
+  companyAddress: '',
+  heroTitle: '',
+  heroSubtitle: '',
+  heroConfig: {
+    title: '',
+    subtitle: '',
+    ctaText: '',
+    ctaSecondaryText: '',
+    backgroundImage: ''
+  },
+  sections: [] as Array<{ id: string; name: string }>,
+  gallery: {
+    beforeAfterImages: [] as Array<{
+      id: string;
+      before: string;
+      after: string;
+      title: string;
+      description: string;
+    }>
+  },
+  testimonials: [] as Array<{
+    id: string;
+    name: string;
+    role: string;
+    company: string;
+    image: string;
+    text: string;
+    rating: number;
+  }>,
+  faq: [] as Array<{
+    id: string;
+    question: string;
+    answer: string;
+    category: string;
+    order: number;
+  }>,
+  socialMedia: {
+    facebook: '',
+    instagram: '',
+    linkedin: '',
+    youtube: ''
+  },
+  seo: {
+    metaTitle: '',
+    metaDescription: '',
+    keywords: ''
+  }
+};
+
 export default function AdminPanel() {
   const { isDark } = useTheme();
   const { user, logout, isMaster } = useAuth();
-  const { siteConfig, services, updateSiteConfig, updateService, toggleSection, resetToDefaults, isSectionEnabled } = useAdmin();
+  const { siteConfig: rawSiteConfig, services, updateSiteConfig, updateService, toggleSection, resetToDefaults, isSectionEnabled } = useAdmin();
   const navigate = useNavigate();
   const toast = useToast();
 
-  const [activeTab, setActiveTab] = useState<'general' | 'sections' | 'services' | 'hero' | 'gallery' | 'testimonials' | 'social' | 'faq'>('general');
+  // Garante que SEMPRE existe uma config segura
+  const siteConfig = rawSiteConfig ?? defaultSiteConfig;
+
+  const heroConfig = siteConfig.heroConfig ?? defaultSiteConfig.heroConfig;
+  const gallery = siteConfig.gallery ?? defaultSiteConfig.gallery;
+  const testimonials = siteConfig.testimonials ?? defaultSiteConfig.testimonials;
+  const faq = siteConfig.faq ?? defaultSiteConfig.faq;
+  const socialMedia = siteConfig.socialMedia ?? defaultSiteConfig.socialMedia;
+  const seo = siteConfig.seo ?? defaultSiteConfig.seo;
+  const sections = siteConfig.sections ?? defaultSiteConfig.sections;
+
+  const [activeTab, setActiveTab] = useState<
+    'general' | 'sections' | 'services' | 'hero' | 'gallery' | 'testimonials' | 'social' | 'faq'
+  >('general');
+
   const [editingService, setEditingService] = useState<string | null>(null);
   const [localConfig, setLocalConfig] = useState(siteConfig);
 
@@ -50,7 +119,7 @@ export default function AdminPanel() {
   const handleResetDefaults = () => {
     if (window.confirm('⚠️ Tem certeza que deseja restaurar todas as configurações padrão? Esta ação não pode ser desfeita.')) {
       resetToDefaults();
-      setLocalConfig(siteConfig);
+      setLocalConfig(defaultSiteConfig);
       toast.success('✅ Configurações restauradas!');
     }
   };
@@ -213,10 +282,15 @@ export default function AdminPanel() {
                   </label>
                   <input
                     type="text"
-                    value={siteConfig.heroConfig.title}
+                    value={heroConfig.title}
                     onChange={(e) => {
-                      const updated = { ...siteConfig };
-                      updated.heroConfig.title = e.target.value;
+                      const updated = {
+                        ...siteConfig,
+                        heroConfig: {
+                          ...heroConfig,
+                          title: e.target.value
+                        }
+                      };
                       updateSiteConfig(updated);
                     }}
                     className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-cyan-500 ${
@@ -234,10 +308,15 @@ export default function AdminPanel() {
                     Subtítulo
                   </label>
                   <textarea
-                    value={siteConfig.heroConfig.subtitle}
+                    value={heroConfig.subtitle}
                     onChange={(e) => {
-                      const updated = { ...siteConfig };
-                      updated.heroConfig.subtitle = e.target.value;
+                      const updated = {
+                        ...siteConfig,
+                        heroConfig: {
+                          ...heroConfig,
+                          subtitle: e.target.value
+                        }
+                      };
                       updateSiteConfig(updated);
                     }}
                     rows={3}
@@ -258,10 +337,15 @@ export default function AdminPanel() {
                     </label>
                     <input
                       type="text"
-                      value={siteConfig.heroConfig.ctaText}
+                      value={heroConfig.ctaText}
                       onChange={(e) => {
-                        const updated = { ...siteConfig };
-                        updated.heroConfig.ctaText = e.target.value;
+                        const updated = {
+                          ...siteConfig,
+                          heroConfig: {
+                            ...heroConfig,
+                            ctaText: e.target.value
+                          }
+                        };
                         updateSiteConfig(updated);
                       }}
                       className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-cyan-500 ${
@@ -280,10 +364,15 @@ export default function AdminPanel() {
                     </label>
                     <input
                       type="text"
-                      value={siteConfig.heroConfig.ctaSecondaryText}
+                      value={heroConfig.ctaSecondaryText}
                       onChange={(e) => {
-                        const updated = { ...siteConfig };
-                        updated.heroConfig.ctaSecondaryText = e.target.value;
+                        const updated = {
+                          ...siteConfig,
+                          heroConfig: {
+                            ...heroConfig,
+                            ctaSecondaryText: e.target.value
+                          }
+                        };
                         updateSiteConfig(updated);
                       }}
                       className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-cyan-500 ${
@@ -303,10 +392,15 @@ export default function AdminPanel() {
                   </label>
                   <input
                     type="url"
-                    value={siteConfig.heroConfig.backgroundImage}
+                    value={heroConfig.backgroundImage}
                     onChange={(e) => {
-                      const updated = { ...siteConfig };
-                      updated.heroConfig.backgroundImage = e.target.value;
+                      const updated = {
+                        ...siteConfig,
+                        heroConfig: {
+                          ...heroConfig,
+                          backgroundImage: e.target.value
+                        }
+                      };
                       updateSiteConfig(updated);
                     }}
                     placeholder="https://exemplo.com/imagem.jpg"
@@ -316,13 +410,13 @@ export default function AdminPanel() {
                         : 'bg-gray-50 border-gray-300 text-gray-900'
                     }`}
                   />
-                  {siteConfig.heroConfig.backgroundImage && (
+                  {heroConfig.backgroundImage && (
                     <div className="mt-3">
                       <p className={`text-sm mb-2 ${isDark ? 'text-slate-400' : 'text-gray-600'}`}>
                         Preview da imagem:
                       </p>
                       <img 
-                        src={siteConfig.heroConfig.backgroundImage} 
+                        src={heroConfig.backgroundImage} 
                         alt="Preview" 
                         className="w-full h-48 object-cover rounded-xl"
                         onError={(e) => {
@@ -543,7 +637,7 @@ export default function AdminPanel() {
               </p>
 
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {siteConfig.sections.map(section => {
+                {sections.map(section => {
                   const enabled = isSectionEnabled(section.id);
                   return (
                     <button
@@ -736,8 +830,13 @@ export default function AdminPanel() {
                       title: 'Nova transformação',
                       description: 'Descrição da transformação'
                     };
-                    const updated = { ...siteConfig };
-                    updated.gallery.beforeAfterImages.push(newImage);
+                    const updated = {
+                      ...siteConfig,
+                      gallery: {
+                        ...gallery,
+                        beforeAfterImages: [...gallery.beforeAfterImages, newImage]
+                      }
+                    };
                     updateSiteConfig(updated);
                     toast.success('✅ Nova imagem adicionada!');
                   }}
@@ -749,7 +848,7 @@ export default function AdminPanel() {
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
-                {siteConfig.gallery.beforeAfterImages.map((image, index) => (
+                {gallery.beforeAfterImages.map((image, index) => (
                   <div
                     key={image.id}
                     className={`p-4 rounded-xl border ${
@@ -766,10 +865,15 @@ export default function AdminPanel() {
                       </h3>
                       <button
                         onClick={() => {
-                          const updated = { ...siteConfig };
-                          updated.gallery.beforeAfterImages = updated.gallery.beforeAfterImages.filter(
-                            img => img.id !== image.id
-                          );
+                          const updated = {
+                            ...siteConfig,
+                            gallery: {
+                              ...gallery,
+                              beforeAfterImages: gallery.beforeAfterImages.filter(
+                                img => img.id !== image.id
+                              )
+                            }
+                          };
                           updateSiteConfig(updated);
                           toast.success('✅ Imagem removida!');
                         }}
@@ -788,11 +892,16 @@ export default function AdminPanel() {
                         type="text"
                         value={image.title}
                         onChange={(e) => {
-                          const updated = { ...siteConfig };
-                          const imgIndex = updated.gallery.beforeAfterImages.findIndex(
-                            img => img.id === image.id
+                          const updatedImages = gallery.beforeAfterImages.map(img =>
+                            img.id === image.id ? { ...img, title: e.target.value } : img
                           );
-                          updated.gallery.beforeAfterImages[imgIndex].title = e.target.value;
+                          const updated = {
+                            ...siteConfig,
+                            gallery: {
+                              ...gallery,
+                              beforeAfterImages: updatedImages
+                            }
+                          };
                           updateSiteConfig(updated);
                         }}
                         placeholder="Título"
@@ -806,11 +915,16 @@ export default function AdminPanel() {
                       <textarea
                         value={image.description}
                         onChange={(e) => {
-                          const updated = { ...siteConfig };
-                          const imgIndex = updated.gallery.beforeAfterImages.findIndex(
-                            img => img.id === image.id
+                          const updatedImages = gallery.beforeAfterImages.map(img =>
+                            img.id === image.id ? { ...img, description: e.target.value } : img
                           );
-                          updated.gallery.beforeAfterImages[imgIndex].description = e.target.value;
+                          const updated = {
+                            ...siteConfig,
+                            gallery: {
+                              ...gallery,
+                              beforeAfterImages: updatedImages
+                            }
+                          };
                           updateSiteConfig(updated);
                         }}
                         placeholder="Descrição"
@@ -826,11 +940,16 @@ export default function AdminPanel() {
                         type="url"
                         value={image.before}
                         onChange={(e) => {
-                          const updated = { ...siteConfig };
-                          const imgIndex = updated.gallery.beforeAfterImages.findIndex(
-                            img => img.id === image.id
+                          const updatedImages = gallery.beforeAfterImages.map(img =>
+                            img.id === image.id ? { ...img, before: e.target.value } : img
                           );
-                          updated.gallery.beforeAfterImages[imgIndex].before = e.target.value;
+                          const updated = {
+                            ...siteConfig,
+                            gallery: {
+                              ...gallery,
+                              beforeAfterImages: updatedImages
+                            }
+                          };
                           updateSiteConfig(updated);
                         }}
                         placeholder="URL imagem ANTES"
@@ -845,11 +964,16 @@ export default function AdminPanel() {
                         type="url"
                         value={image.after}
                         onChange={(e) => {
-                          const updated = { ...siteConfig };
-                          const imgIndex = updated.gallery.beforeAfterImages.findIndex(
-                            img => img.id === image.id
+                          const updatedImages = gallery.beforeAfterImages.map(img =>
+                            img.id === image.id ? { ...img, after: e.target.value } : img
                           );
-                          updated.gallery.beforeAfterImages[imgIndex].after = e.target.value;
+                          const updated = {
+                            ...siteConfig,
+                            gallery: {
+                              ...gallery,
+                              beforeAfterImages: updatedImages
+                            }
+                          };
                           updateSiteConfig(updated);
                         }}
                         placeholder="URL imagem DEPOIS"
@@ -920,8 +1044,10 @@ export default function AdminPanel() {
                       text: 'Depoimento do cliente...',
                       rating: 5
                     };
-                    const updated = { ...siteConfig };
-                    updated.testimonials.push(newTestimonial);
+                    const updated = {
+                      ...siteConfig,
+                      testimonials: [...testimonials, newTestimonial]
+                    };
                     updateSiteConfig(updated);
                     toast.success('✅ Novo depoimento adicionado!');
                   }}
@@ -933,7 +1059,7 @@ export default function AdminPanel() {
               </div>
 
               <div className="space-y-4">
-                {siteConfig.testimonials.map((testimonial, index) => (
+                {testimonials.map((testimonial, index) => (
                   <div
                     key={testimonial.id}
                     className={`p-4 rounded-xl border ${
@@ -971,10 +1097,12 @@ export default function AdminPanel() {
                       </div>
                       <button
                         onClick={() => {
-                          const updated = { ...siteConfig };
-                          updated.testimonials = updated.testimonials.filter(
-                            t => t.id !== testimonial.id
-                          );
+                          const updated = {
+                            ...siteConfig,
+                            testimonials: testimonials.filter(
+                              t => t.id !== testimonial.id
+                            )
+                          };
                           updateSiteConfig(updated);
                           toast.success('✅ Depoimento removido!');
                         }}
@@ -993,11 +1121,13 @@ export default function AdminPanel() {
                         type="text"
                         value={testimonial.name}
                         onChange={(e) => {
-                          const updated = { ...siteConfig };
-                          const testIndex = updated.testimonials.findIndex(
-                            t => t.id === testimonial.id
+                          const updatedList = testimonials.map(t =>
+                            t.id === testimonial.id ? { ...t, name: e.target.value } : t
                           );
-                          updated.testimonials[testIndex].name = e.target.value;
+                          const updated = {
+                            ...siteConfig,
+                            testimonials: updatedList
+                          };
                           updateSiteConfig(updated);
                         }}
                         placeholder="Nome"
@@ -1012,11 +1142,13 @@ export default function AdminPanel() {
                         type="text"
                         value={testimonial.role}
                         onChange={(e) => {
-                          const updated = { ...siteConfig };
-                          const testIndex = updated.testimonials.findIndex(
-                            t => t.id === testimonial.id
+                          const updatedList = testimonials.map(t =>
+                            t.id === testimonial.id ? { ...t, role: e.target.value } : t
                           );
-                          updated.testimonials[testIndex].role = e.target.value;
+                          const updated = {
+                            ...siteConfig,
+                            testimonials: updatedList
+                          };
                           updateSiteConfig(updated);
                         }}
                         placeholder="Cargo (ex: Síndico)"
@@ -1031,11 +1163,13 @@ export default function AdminPanel() {
                         type="text"
                         value={testimonial.company}
                         onChange={(e) => {
-                          const updated = { ...siteConfig };
-                          const testIndex = updated.testimonials.findIndex(
-                            t => t.id === testimonial.id
+                          const updatedList = testimonials.map(t =>
+                            t.id === testimonial.id ? { ...t, company: e.target.value } : t
                           );
-                          updated.testimonials[testIndex].company = e.target.value;
+                          const updated = {
+                            ...siteConfig,
+                            testimonials: updatedList
+                          };
                           updateSiteConfig(updated);
                         }}
                         placeholder="Condomínio"
@@ -1050,11 +1184,13 @@ export default function AdminPanel() {
                         type="url"
                         value={testimonial.image}
                         onChange={(e) => {
-                          const updated = { ...siteConfig };
-                          const testIndex = updated.testimonials.findIndex(
-                            t => t.id === testimonial.id
+                          const updatedList = testimonials.map(t =>
+                            t.id === testimonial.id ? { ...t, image: e.target.value } : t
                           );
-                          updated.testimonials[testIndex].image = e.target.value;
+                          const updated = {
+                            ...siteConfig,
+                            testimonials: updatedList
+                          };
                           updateSiteConfig(updated);
                         }}
                         placeholder="URL da foto"
@@ -1069,11 +1205,13 @@ export default function AdminPanel() {
                     <textarea
                       value={testimonial.text}
                       onChange={(e) => {
-                        const updated = { ...siteConfig };
-                        const testIndex = updated.testimonials.findIndex(
-                          t => t.id === testimonial.id
+                        const updatedList = testimonials.map(t =>
+                          t.id === testimonial.id ? { ...t, text: e.target.value } : t
                         );
-                        updated.testimonials[testIndex].text = e.target.value;
+                        const updated = {
+                          ...siteConfig,
+                          testimonials: updatedList
+                        };
                         updateSiteConfig(updated);
                       }}
                       placeholder="Depoimento"
@@ -1109,10 +1247,12 @@ export default function AdminPanel() {
                       question: 'Nova pergunta',
                       answer: 'Resposta da pergunta...',
                       category: 'Geral',
-                      order: siteConfig.faq.length + 1
+                      order: faq.length + 1
                     };
-                    const updated = { ...siteConfig };
-                    updated.faq.push(newFAQ);
+                    const updated = {
+                      ...siteConfig,
+                      faq: [...faq, newFAQ]
+                    };
                     updateSiteConfig(updated);
                     toast.success('✅ Nova pergunta adicionada!');
                   }}
@@ -1124,11 +1264,12 @@ export default function AdminPanel() {
               </div>
 
               <div className="space-y-4">
-                {siteConfig.faq
+                {faq
+                  .slice()
                   .sort((a, b) => a.order - b.order)
-                  .map((faq, index) => (
+                  .map((faqItem, index) => (
                     <div
-                      key={faq.id}
+                      key={faqItem.id}
                       className={`p-4 rounded-xl border ${
                         isDark
                           ? 'border-slate-700 bg-slate-800/50'
@@ -1144,11 +1285,15 @@ export default function AdminPanel() {
                           </span>
                           <input
                             type="text"
-                            value={faq.category}
+                            value={faqItem.category}
                             onChange={(e) => {
-                              const updated = { ...siteConfig };
-                              const faqIndex = updated.faq.findIndex(f => f.id === faq.id);
-                              updated.faq[faqIndex].category = e.target.value;
+                              const updatedList = faq.map(f =>
+                                f.id === faqItem.id ? { ...f, category: e.target.value } : f
+                              );
+                              const updated = {
+                                ...siteConfig,
+                                faq: updatedList
+                              };
                               updateSiteConfig(updated);
                             }}
                             placeholder="Categoria"
@@ -1161,8 +1306,10 @@ export default function AdminPanel() {
                         </div>
                         <button
                           onClick={() => {
-                            const updated = { ...siteConfig };
-                            updated.faq = updated.faq.filter(f => f.id !== faq.id);
+                            const updated = {
+                              ...siteConfig,
+                              faq: faq.filter(f => f.id !== faqItem.id)
+                            };
                             updateSiteConfig(updated);
                             toast.success('✅ Pergunta removida!');
                           }}
@@ -1185,11 +1332,15 @@ export default function AdminPanel() {
                           </label>
                           <input
                             type="text"
-                            value={faq.question}
+                            value={faqItem.question}
                             onChange={(e) => {
-                              const updated = { ...siteConfig };
-                              const faqIndex = updated.faq.findIndex(f => f.id === faq.id);
-                              updated.faq[faqIndex].question = e.target.value;
+                              const updatedList = faq.map(f =>
+                                f.id === faqItem.id ? { ...f, question: e.target.value } : f
+                              );
+                              const updated = {
+                                ...siteConfig,
+                                faq: updatedList
+                              };
                               updateSiteConfig(updated);
                             }}
                             placeholder="Digite a pergunta..."
@@ -1208,11 +1359,15 @@ export default function AdminPanel() {
                             Resposta:
                           </label>
                           <textarea
-                            value={faq.answer}
+                            value={faqItem.answer}
                             onChange={(e) => {
-                              const updated = { ...siteConfig };
-                              const faqIndex = updated.faq.findIndex(f => f.id === faq.id);
-                              updated.faq[faqIndex].answer = e.target.value;
+                              const updatedList = faq.map(f =>
+                                f.id === faqItem.id ? { ...f, answer: e.target.value } : f
+                              );
+                              const updated = {
+                                ...siteConfig,
+                                faq: updatedList
+                              };
                               updateSiteConfig(updated);
                             }}
                             placeholder="Digite a resposta..."
@@ -1229,7 +1384,7 @@ export default function AdminPanel() {
                   ))}
               </div>
 
-              {siteConfig.faq.length === 0 && (
+              {faq.length === 0 && (
                 <div className={`text-center py-12 ${
                   isDark ? 'text-slate-400' : 'text-gray-500'
                 }`}>
@@ -1261,7 +1416,7 @@ export default function AdminPanel() {
                     Redes Sociais
                   </h3>
                   <div className="grid md:grid-cols-2 gap-4">
-                    {Object.entries(siteConfig.socialMedia).map(([platform, url]) => (
+                    {Object.entries(socialMedia).map(([platform, url]) => (
                       <div key={platform}>
                         <label className={`block font-semibold mb-2 capitalize ${
                           isDark ? 'text-white' : 'text-gray-900'
@@ -1272,8 +1427,13 @@ export default function AdminPanel() {
                           type="url"
                           value={url}
                           onChange={(e) => {
-                            const updated = { ...siteConfig };
-                            updated.socialMedia[platform as keyof typeof siteConfig.socialMedia] = e.target.value;
+                            const updated = {
+                              ...siteConfig,
+                              socialMedia: {
+                                ...socialMedia,
+                                [platform]: e.target.value
+                              }
+                            };
                             updateSiteConfig(updated);
                           }}
                           placeholder={`https://${platform}.com/...`}
@@ -1305,10 +1465,15 @@ export default function AdminPanel() {
                       </label>
                       <input
                         type="text"
-                        value={siteConfig.seo.metaTitle}
+                        value={seo.metaTitle}
                         onChange={(e) => {
-                          const updated = { ...siteConfig };
-                          updated.seo.metaTitle = e.target.value;
+                          const updated = {
+                            ...siteConfig,
+                            seo: {
+                              ...seo,
+                              metaTitle: e.target.value
+                            }
+                          };
                           updateSiteConfig(updated);
                         }}
                         maxLength={60}
@@ -1321,7 +1486,7 @@ export default function AdminPanel() {
                       <p className={`text-xs mt-1 ${
                         isDark ? 'text-slate-400' : 'text-gray-500'
                       }`}>
-                        {siteConfig.seo.metaTitle.length}/60 caracteres
+                        {seo.metaTitle?.length ?? 0}/60 caracteres
                       </p>
                     </div>
 
@@ -1332,10 +1497,15 @@ export default function AdminPanel() {
                         Descrição (Meta Description)
                       </label>
                       <textarea
-                        value={siteConfig.seo.metaDescription}
+                        value={seo.metaDescription}
                         onChange={(e) => {
-                          const updated = { ...siteConfig };
-                          updated.seo.metaDescription = e.target.value;
+                          const updated = {
+                            ...siteConfig,
+                            seo: {
+                              ...seo,
+                              metaDescription: e.target.value
+                            }
+                          };
                           updateSiteConfig(updated);
                         }}
                         maxLength={160}
@@ -1349,7 +1519,7 @@ export default function AdminPanel() {
                       <p className={`text-xs mt-1 ${
                         isDark ? 'text-slate-400' : 'text-gray-500'
                       }`}>
-                        {siteConfig.seo.metaDescription.length}/160 caracteres
+                        {seo.metaDescription?.length ?? 0}/160 caracteres
                       </p>
                     </div>
 
@@ -1361,10 +1531,15 @@ export default function AdminPanel() {
                       </label>
                       <input
                         type="text"
-                        value={siteConfig.seo.keywords}
+                        value={seo.keywords}
                         onChange={(e) => {
-                          const updated = { ...siteConfig };
-                          updated.seo.keywords = e.target.value;
+                          const updated = {
+                            ...siteConfig,
+                            seo: {
+                              ...seo,
+                              keywords: e.target.value
+                            }
+                          };
                           updateSiteConfig(updated);
                         }}
                         placeholder="síndico profissional, gestão condominial, ..."
