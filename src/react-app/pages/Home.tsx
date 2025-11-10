@@ -178,7 +178,35 @@ export default function Home() {
             <div className="flex items-center space-x-2 sm:space-x-4">
               <ThemeToggle />
               
-              {/* Desktop Navigation */}
+              {/* Desktop Navigation - Menu Links */}
+              <nav className="hidden xl:flex items-center space-x-1 mr-4">
+                <button
+                  onClick={() => document.getElementById('sobre')?.scrollIntoView({ behavior: 'smooth' })}
+                  className={`px-3 py-2 rounded-lg font-medium text-sm transition-all ${
+                    isDark ? 'text-slate-300 hover:text-white hover:bg-white/10' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
+                  }`}
+                >
+                  Sobre
+                </button>
+                <button
+                  onClick={() => setShowAdvancedProposal(true)}
+                  className={`px-3 py-2 rounded-lg font-medium text-sm transition-all ${
+                    isDark ? 'text-slate-300 hover:text-white hover:bg-white/10' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
+                  }`}
+                >
+                  Serviços
+                </button>
+                <button
+                  onClick={() => document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })}
+                  className={`px-3 py-2 rounded-lg font-medium text-sm transition-all ${
+                    isDark ? 'text-slate-300 hover:text-white hover:bg-white/10' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
+                  }`}
+                >
+                  Calculadora
+                </button>
+              </nav>
+
+              {/* Desktop Navigation - Action Buttons */}
               <div className="hidden lg:flex items-center space-x-3">
                 <button
                   onClick={() => setShowAdvancedProposal(true)}
