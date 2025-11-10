@@ -190,6 +190,171 @@ export default function AdminPanel() {
 
         {/* Content */}
         <div className="space-y-6">
+          {/* Hero & Visual Settings */}
+          {activeTab === 'hero' && (
+            <div className={`p-6 rounded-2xl ${
+              isDark ? 'glass-effect' : 'glass-effect-light bg-white'
+            }`}>
+              <h2 className={`text-2xl font-bold mb-6 flex items-center ${
+                isDark ? 'text-white' : 'text-gray-900'
+              }`}>
+                <Sparkles className="w-6 h-6 mr-2" />
+                Hero Section & Identidade Visual
+              </h2>
+
+              <div className="space-y-6">
+                <div>
+                  <label className={`block font-semibold mb-2 ${
+                    isDark ? 'text-white' : 'text-gray-900'
+                  }`}>
+                    Título Principal
+                  </label>
+                  <input
+                    type="text"
+                    value={siteConfig.heroConfig.title}
+                    onChange={(e) => {
+                      const updated = { ...siteConfig };
+                      updated.heroConfig.title = e.target.value;
+                      updateSiteConfig(updated);
+                    }}
+                    className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-cyan-500 ${
+                      isDark 
+                        ? 'bg-slate-800 border-slate-700 text-white' 
+                        : 'bg-gray-50 border-gray-300 text-gray-900'
+                    }`}
+                  />
+                </div>
+
+                <div>
+                  <label className={`block font-semibold mb-2 ${
+                    isDark ? 'text-white' : 'text-gray-900'
+                  }`}>
+                    Subtítulo
+                  </label>
+                  <textarea
+                    value={siteConfig.heroConfig.subtitle}
+                    onChange={(e) => {
+                      const updated = { ...siteConfig };
+                      updated.heroConfig.subtitle = e.target.value;
+                      updateSiteConfig(updated);
+                    }}
+                    rows={3}
+                    className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-cyan-500 resize-none ${
+                      isDark 
+                        ? 'bg-slate-800 border-slate-700 text-white' 
+                        : 'bg-gray-50 border-gray-300 text-gray-900'
+                    }`}
+                  />
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label className={`block font-semibold mb-2 ${
+                      isDark ? 'text-white' : 'text-gray-900'
+                    }`}>
+                      Texto do Botão Principal
+                    </label>
+                    <input
+                      type="text"
+                      value={siteConfig.heroConfig.ctaText}
+                      onChange={(e) => {
+                        const updated = { ...siteConfig };
+                        updated.heroConfig.ctaText = e.target.value;
+                        updateSiteConfig(updated);
+                      }}
+                      className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-cyan-500 ${
+                        isDark 
+                          ? 'bg-slate-800 border-slate-700 text-white' 
+                          : 'bg-gray-50 border-gray-300 text-gray-900'
+                      }`}
+                    />
+                  </div>
+
+                  <div>
+                    <label className={`block font-semibold mb-2 ${
+                      isDark ? 'text-white' : 'text-gray-900'
+                    }`}>
+                      Texto do Botão Secundário
+                    </label>
+                    <input
+                      type="text"
+                      value={siteConfig.heroConfig.ctaSecondaryText}
+                      onChange={(e) => {
+                        const updated = { ...siteConfig };
+                        updated.heroConfig.ctaSecondaryText = e.target.value;
+                        updateSiteConfig(updated);
+                      }}
+                      className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-cyan-500 ${
+                        isDark 
+                          ? 'bg-slate-800 border-slate-700 text-white' 
+                          : 'bg-gray-50 border-gray-300 text-gray-900'
+                      }`}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className={`block font-semibold mb-2 ${
+                    isDark ? 'text-white' : 'text-gray-900'
+                  }`}>
+                    URL da Imagem de Fundo do Hero (opcional)
+                  </label>
+                  <input
+                    type="url"
+                    value={siteConfig.heroConfig.backgroundImage}
+                    onChange={(e) => {
+                      const updated = { ...siteConfig };
+                      updated.heroConfig.backgroundImage = e.target.value;
+                      updateSiteConfig(updated);
+                    }}
+                    placeholder="https://exemplo.com/imagem.jpg"
+                    className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-cyan-500 ${
+                      isDark 
+                        ? 'bg-slate-800 border-slate-700 text-white' 
+                        : 'bg-gray-50 border-gray-300 text-gray-900'
+                    }`}
+                  />
+                  {siteConfig.heroConfig.backgroundImage && (
+                    <div className="mt-3">
+                      <p className={`text-sm mb-2 ${isDark ? 'text-slate-400' : 'text-gray-600'}`}>
+                        Preview da imagem:
+                      </p>
+                      <img 
+                        src={siteConfig.heroConfig.backgroundImage} 
+                        alt="Preview" 
+                        className="w-full h-48 object-cover rounded-xl"
+                        onError={(e) => {
+                          e.currentTarget.src = 'https://via.placeholder.com/800x400?text=Erro+ao+carregar+imagem';
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                <div className={`p-4 rounded-xl ${
+                  isDark ? 'bg-cyan-500/20' : 'bg-cyan-50'
+                }`}>
+                  <p className={`text-sm ${
+                    isDark ? 'text-cyan-300' : 'text-cyan-700'
+                  }`}>
+                    💡 <strong>Dica:</strong> Use imagens de alta qualidade (mínimo 1920x1080) 
+                    para melhor resultado no hero. Formatos recomendados: JPG ou WebP.
+                  </p>
+                </div>
+
+                <button
+                  onClick={() => toast.success('✅ Configurações do Hero salvas!')}
+                  className={`px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-xl transition-all hover:scale-105 flex items-center space-x-2 ${
+                    isDark ? 'hover:shadow-glow' : 'hover:shadow-glow-light'
+                  }`}
+                >
+                  <Save className="w-5 h-5" />
+                  <span>Salvar Hero</span>
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* General Settings */}
           {activeTab === 'general' && (
             <div className={`p-6 rounded-2xl ${
