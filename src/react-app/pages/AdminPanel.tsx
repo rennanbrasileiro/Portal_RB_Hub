@@ -1090,6 +1090,157 @@ export default function AdminPanel() {
             </div>
           )}
 
+          {/* FAQ Management */}
+          {activeTab === 'faq' && (
+            <div className={`p-6 rounded-2xl ${
+              isDark ? 'glass-effect' : 'glass-effect-light bg-white'
+            }`}>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className={`text-2xl font-bold flex items-center ${
+                  isDark ? 'text-white' : 'text-gray-900'
+                }`}>
+                  <HelpCircle className="w-6 h-6 mr-2" />
+                  Perguntas Frequentes (FAQ)
+                </h2>
+                <button
+                  onClick={() => {
+                    const newFAQ = {
+                      id: `faq-${Date.now()}`,
+                      question: 'Nova pergunta',
+                      answer: 'Resposta da pergunta...',
+                      category: 'Geral',
+                      order: siteConfig.faq.length + 1
+                    };
+                    const updated = { ...siteConfig };
+                    updated.faq.push(newFAQ);
+                    updateSiteConfig(updated);
+                    toast.success('✅ Nova pergunta adicionada!');
+                  }}
+                  className={`px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-xl transition-all hover:scale-105 flex items-center space-x-2`}
+                >
+                  <Plus className="w-5 h-5" />
+                  <span>Adicionar Pergunta</span>
+                </button>
+              </div>
+
+              <div className="space-y-4">
+                {siteConfig.faq
+                  .sort((a, b) => a.order - b.order)
+                  .map((faq, index) => (
+                    <div
+                      key={faq.id}
+                      className={`p-4 rounded-xl border ${
+                        isDark
+                          ? 'border-slate-700 bg-slate-800/50'
+                          : 'border-gray-200 bg-gray-50'
+                      }`}
+                    >
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex items-center space-x-3 flex-1">
+                          <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                            isDark ? 'bg-cyan-500/20 text-cyan-400' : 'bg-cyan-100 text-cyan-700'
+                          }`}>
+                            #{index + 1}
+                          </span>
+                          <input
+                            type="text"
+                            value={faq.category}
+                            onChange={(e) => {
+                              const updated = { ...siteConfig };
+                              const faqIndex = updated.faq.findIndex(f => f.id === faq.id);
+                              updated.faq[faqIndex].category = e.target.value;
+                              updateSiteConfig(updated);
+                            }}
+                            placeholder="Categoria"
+                            className={`px-3 py-1 rounded-lg border text-sm font-semibold ${
+                              isDark
+                                ? 'bg-slate-900 border-slate-600 text-white'
+                                : 'bg-white border-gray-300 text-gray-900'
+                            }`}
+                          />
+                        </div>
+                        <button
+                          onClick={() => {
+                            const updated = { ...siteConfig };
+                            updated.faq = updated.faq.filter(f => f.id !== faq.id);
+                            updateSiteConfig(updated);
+                            toast.success('✅ Pergunta removida!');
+                          }}
+                          className={`p-2 rounded-lg transition-all ${
+                            isDark
+                              ? 'hover:bg-red-500/20 text-red-400'
+                              : 'hover:bg-red-50 text-red-600'
+                          }`}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+
+                      <div className="space-y-3">
+                        <div>
+                          <label className={`block text-xs font-semibold mb-1 ${
+                            isDark ? 'text-slate-400' : 'text-gray-600'
+                          }`}>
+                            Pergunta:
+                          </label>
+                          <input
+                            type="text"
+                            value={faq.question}
+                            onChange={(e) => {
+                              const updated = { ...siteConfig };
+                              const faqIndex = updated.faq.findIndex(f => f.id === faq.id);
+                              updated.faq[faqIndex].question = e.target.value;
+                              updateSiteConfig(updated);
+                            }}
+                            placeholder="Digite a pergunta..."
+                            className={`w-full px-3 py-2 rounded-lg border ${
+                              isDark
+                                ? 'bg-slate-900 border-slate-600 text-white'
+                                : 'bg-white border-gray-300 text-gray-900'
+                            }`}
+                          />
+                        </div>
+
+                        <div>
+                          <label className={`block text-xs font-semibold mb-1 ${
+                            isDark ? 'text-slate-400' : 'text-gray-600'
+                          }`}>
+                            Resposta:
+                          </label>
+                          <textarea
+                            value={faq.answer}
+                            onChange={(e) => {
+                              const updated = { ...siteConfig };
+                              const faqIndex = updated.faq.findIndex(f => f.id === faq.id);
+                              updated.faq[faqIndex].answer = e.target.value;
+                              updateSiteConfig(updated);
+                            }}
+                            placeholder="Digite a resposta..."
+                            rows={3}
+                            className={`w-full px-3 py-2 rounded-lg border resize-none ${
+                              isDark
+                                ? 'bg-slate-900 border-slate-600 text-white'
+                                : 'bg-white border-gray-300 text-gray-900'
+                            }`}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+
+              {siteConfig.faq.length === 0 && (
+                <div className={`text-center py-12 ${
+                  isDark ? 'text-slate-400' : 'text-gray-500'
+                }`}>
+                  <HelpCircle className="w-12 h-12 mx-auto mb-3 opacity-50" />
+                  <p>Nenhuma pergunta cadastrada ainda</p>
+                  <p className="text-sm mt-1">Clique em "Adicionar Pergunta" para começar</p>
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Social Media & SEO */}
           {activeTab === 'social' && (
             <div className={`p-6 rounded-2xl ${
