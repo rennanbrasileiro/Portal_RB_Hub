@@ -50,6 +50,9 @@ export default function Home() {
   const [showAdvancedProposal, setShowAdvancedProposal] = useState(false);
   const { isDark } = useTheme();
   const toast = useToast();
+  const navigate = useNavigate();
+  const { isAuthenticated, isMaster } = useAuth();
+  const { siteConfig, isSectionEnabled } = useAdmin();
 
   useEffect(() => {
     const handleScroll = () => {
