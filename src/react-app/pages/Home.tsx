@@ -134,26 +134,8 @@ export default function Home() {
     { icon: FileCheck, text: 'Gestão Transparente', desc: 'Relatórios detalhados mensais' },
   ];
 
-  const testimonials = [
-    {
-      name: "Maria Silva",
-      building: "Edifício Solar",
-      text: "A RB HUB transformou a gestão do nosso condomínio. Transparência total e resultados excepcionais!",
-      rating: 5
-    },
-    {
-      name: "João Santos",
-      building: "Residencial Gardens",
-      text: "Profissionalismo exemplar. Nosso condomínio nunca esteve tão bem administrado.",
-      rating: 5
-    },
-    {
-      name: "Ana Costa",
-      building: "Edifício Premium",
-      text: "Hub completo de soluções. Tudo que precisamos em um só lugar com qualidade superior.",
-      rating: 5
-    }
-  ];
+  // Usar depoimentos do AdminContext
+  const testimonials = siteConfig.testimonials;
 
   const stats = [
     { number: "150+", label: "Condomínios Atendidos" },
