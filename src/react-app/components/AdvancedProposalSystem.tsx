@@ -632,31 +632,8 @@ export default function AdvancedProposalSystem({ onClose }: AdvancedProposalSyst
     return groups;
   }, [filteredServices]);
 
-  // Calculate total estimate
-  const totalEstimate = useMemo(() => {
-    let total = 0;
-    selectedServices.forEach(serviceId => {
-      const service = allServices.find(s => s.id === serviceId);
-      if (service && service.basePrice) {
-        let price = service.basePrice;
-        
-        // Apply unit multipliers for recurring services
-        if (service.isRecurring && service.unit === 'monthly') {
-          // For monthly services, consider scale based on units
-          if (['zeladoria', 'portaria', 'gestao_administrativa'].includes(serviceId)) {
-            price += condominiumUnits * 15;
-          } else if (['limpeza_conservacao', 'manutencao_preventiva'].includes(serviceId)) {
-            price += condominiumUnits * 8;
-          } else if (['cftv_monitoramento', 'controle_acesso'].includes(serviceId)) {
-            price += condominiumUnits * 12;
-          }
-        }
-        
-        total += price;
-      }
-    });
-    return total;
-  }, [selectedServices, condominiumUnits]);
+  // Calculate total estimate using shared calculation hook
+  const { total: totalEstimate } = useServiceCalculation(allServices, selectedServices, condominiumUnits);
 
   const toggleService = (serviceId: string) => {
     setSelectedServices(prev => 
