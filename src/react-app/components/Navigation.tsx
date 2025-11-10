@@ -188,6 +188,55 @@ export default function Navigation({ scrolled, onOpenProposal, onOpenContact }: 
               >
                 Contato Rápido
               </button>
+              
+              {/* Auth Buttons Mobile */}
+              {isAuthenticated && isMaster ? (
+                <>
+                  <button
+                    onClick={() => {
+                      navigate('/admin');
+                      setMobileMenuOpen(false);
+                    }}
+                    className={`px-4 py-2 rounded-lg font-medium text-left transition-all flex items-center space-x-2 ${
+                      isDark 
+                        ? 'text-purple-400 hover:text-purple-300 hover:bg-purple-500/10' 
+                        : 'text-purple-600 hover:text-purple-700 hover:bg-purple-50'
+                    }`}
+                  >
+                    <Settings className="w-4 h-4" />
+                    <span>Administração</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                    }}
+                    className={`px-4 py-2 rounded-lg font-medium text-left transition-all flex items-center space-x-2 ${
+                      isDark 
+                        ? 'text-red-400 hover:text-red-300 hover:bg-red-500/10' 
+                        : 'text-red-600 hover:text-red-700 hover:bg-red-50'
+                    }`}
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span>Sair</span>
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={() => {
+                    navigate('/login');
+                    setMobileMenuOpen(false);
+                  }}
+                  className={`px-4 py-2 rounded-lg font-medium text-left transition-all flex items-center space-x-2 ${
+                    isDark 
+                      ? 'text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/10' 
+                      : 'text-cyan-600 hover:text-cyan-700 hover:bg-cyan-50'
+                  }`}
+                >
+                  <LogIn className="w-4 h-4" />
+                  <span>Entrar</span>
+                </button>
+              )}
+              
               <button
                 onClick={() => {
                   onOpenProposal();
