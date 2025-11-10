@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useTheme } from '@/react-app/contexts/ThemeContext';
 import ThemeToggle from '@/react-app/components/ThemeToggle';
 
