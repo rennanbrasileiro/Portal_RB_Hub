@@ -275,6 +275,9 @@ export default function AdvancedProposalSystem({ onClose }: AdvancedProposalSyst
                     {condominiumUnits}
                   </div>
                 </div>
+                <p className={`text-xs mt-2 ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>
+                  💡 Aceita desde 1 unidade (torre única) até 500 unidades
+                </p>
               </div>
             </div>
           </div>
