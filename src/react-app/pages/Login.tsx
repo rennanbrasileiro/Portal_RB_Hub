@@ -30,11 +30,13 @@ export default function Login() {
     const success = await login(email, password);
     
     if (success) {
-      toast.success('✅ Login realizado com sucesso!');
+      toast.success('✅ Login realizado com sucesso! Redirecionando...');
       setTimeout(() => {
         // Redirecionar para o portal (CondoHUB_Portal)
-        const portalUrl = import.meta.env.VITE_PORTAL_URL || 'http://localhost:3000';
-        window.location.href = portalUrl;
+        // Pode passar dados do usuário via URL params ou localStorage
+        navigateToPortal({
+          userId: 'user-temp-id', // Será substituído por ID real quando tiver backend
+        });
       }, 1500);
     } else {
       setError('E-mail ou senha inválidos');
