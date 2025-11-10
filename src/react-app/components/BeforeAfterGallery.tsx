@@ -1,47 +1,16 @@
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight, Eye, TrendingUp } from 'lucide-react';
 import { useTheme } from '@/react-app/contexts/ThemeContext';
-
-const transformations = [
-  {
-    id: 1,
-    title: 'Edifício Solar - Revitalização Completa',
-    location: 'Boa Viagem, Recife',
-    before: 'https://images.unsplash.com/photo-1555636222-cae831e670b3?w=500&h=400&fit=crop',
-    after: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=500&h=400&fit=crop',
-    services: ['Pintura de Fachada', 'Impermeabilização', 'Paisagismo'],
-    results: ['Valorização de 15%', 'Economia 30% energia', 'Satisfação 98%'],
-    investment: 'R$ 85.000',
-    duration: '21 dias'
-  },
-  {
-    id: 2,
-    title: 'Residencial Gardens - Modernização',
-    location: 'Imbiribeira, Recife',
-    before: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=500&h=400&fit=crop',
-    after: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=500&h=400&fit=crop',
-    services: ['Automação Predial', 'CFTV HD', 'LED Inteligente'],
-    results: ['Segurança 100%', 'Economia 40% energia', 'Tecnologia avançada'],
-    investment: 'R$ 120.000',
-    duration: '30 dias'
-  },
-  {
-    id: 3,
-    title: 'Condomínio Premium - Gestão Total',
-    location: 'Pina, Recife',
-    before: 'https://images.unsplash.com/photo-1549317336-206569e8475c?w=500&h=400&fit=crop',
-    after: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=500&h=400&fit=crop',
-    services: ['Síndico Profissional', 'Zeladoria 24h', 'Manutenção Preventiva'],
-    results: ['Inadimplência 0%', 'Custos -25%', 'Transparência total'],
-    investment: 'R$ 8.500/mês',
-    duration: 'Gestão contínua'
-  }
-];
+import { useAdmin } from '@/react-app/contexts/AdminContext';
 
 export default function BeforeAfterGallery() {
+  const { isDark } = useTheme();
+  const { siteConfig } = useAdmin();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showBefore, setShowBefore] = useState(true);
-  const { isDark } = useTheme();
+  
+  // Usar imagens do AdminContext
+  const transformations = siteConfig.gallery.beforeAfterImages;
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % transformations.length);
@@ -52,6 +21,11 @@ export default function BeforeAfterGallery() {
     setCurrentIndex((prev) => (prev - 1 + transformations.length) % transformations.length);
     setShowBefore(true);
   };
+
+  // Se não houver imagens, retornar null
+  if (transformations.length === 0) {
+    return null;
+  }
 
   const current = transformations[currentIndex];
 
@@ -133,63 +107,36 @@ export default function BeforeAfterGallery() {
                 <h3 className={`text-2xl font-bold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                   {current.title}
                 </h3>
-                <p className={`flex items-center space-x-2 ${isDark ? 'text-cyan-300' : 'text-cyan-600'}`}>
-                  <span>{current.location}</span>
+                <p className={`${isDark ? 'text-slate-300' : 'text-gray-600'}`}>
+                  {current.description}
                 </p>
               </div>
 
-              {/* Services */}
-              <div className="mb-6">
-                <h4 className={`font-bold mb-3 ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                  Serviços Realizados
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {current.services.map((service, index) => (
-                    <span
-                      key={index}
-                      className={`px-3 py-1 rounded-full text-sm font-medium ${
-                        isDark 
-                          ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30' 
-                          : 'bg-cyan-50 text-cyan-700 border border-cyan-200'
-                      }`}
-                    >
-                      {service}
-                    </span>
-                  ))}
-                </div>
+              {/* Pagination Dots */}
+              <div className="flex items-center space-x-2 mb-6">
+                {transformations.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      setCurrentIndex(index);
+                      setShowBefore(true);
+                    }}
+                    className={`h-2 rounded-full transition-all ${
+                      index === currentIndex 
+                        ? 'w-8 bg-gradient-to-r from-cyan-500 to-blue-600' 
+                        : `w-2 ${
+                        isDark ? 'bg-slate-700' : 'bg-gray-300'
+                      }`
+                    }`}
+                  />
+                ))}
               </div>
 
-              {/* Results */}
-              <div className="mb-6">
-                <h4 className={`font-bold mb-3 ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                  Resultados Alcançados
-                </h4>
-                <div className="space-y-2">
-                  {current.results.map((result, index) => (
-                    <div key={index} className="flex items-center space-x-3">
-                      <TrendingUp className={`w-4 h-4 ${isDark ? 'text-green-400' : 'text-green-600'}`} />
-                      <span className={`${isDark ? 'text-slate-300' : 'text-gray-700'}`}>
-                        {result}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Investment Info */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className={`p-4 rounded-xl ${isDark ? 'bg-slate-800/50' : 'bg-gray-50'}`}>
-                  <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-gray-600'}`}>Investimento</p>
-                  <p className={`font-bold text-lg ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                    {current.investment}
-                  </p>
-                </div>
-                <div className={`p-4 rounded-xl ${isDark ? 'bg-slate-800/50' : 'bg-gray-50'}`}>
-                  <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-gray-600'}`}>Prazo</p>
-                  <p className={`font-bold text-lg ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                    {current.duration}
-                  </p>
-                </div>
+              {/* Call to Action */}
+              <div className={`p-4 rounded-xl ${isDark ? 'bg-cyan-500/20' : 'bg-cyan-50'}`}>
+                <p className={`text-sm ${isDark ? 'text-cyan-300' : 'text-cyan-700'}`}>
+                  ✨ <strong>Transforme seu condomínio também!</strong> Entre em contato para saber mais sobre nossos serviços.
+                </p>
               </div>
             </div>
           </div>

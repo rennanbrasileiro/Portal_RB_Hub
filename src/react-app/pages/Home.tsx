@@ -34,7 +34,11 @@ import {
   AlertTriangle,
   FileText,
   Settings,
-  LogIn
+  LogIn,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Youtube
 } from 'lucide-react';
 import { useTheme } from '@/react-app/contexts/ThemeContext';
 import ThemeToggle from '@/react-app/components/ThemeToggle';
@@ -134,26 +138,8 @@ export default function Home() {
     { icon: FileCheck, text: 'Gestão Transparente', desc: 'Relatórios detalhados mensais' },
   ];
 
-  const testimonials = [
-    {
-      name: "Maria Silva",
-      building: "Edifício Solar",
-      text: "A RB HUB transformou a gestão do nosso condomínio. Transparência total e resultados excepcionais!",
-      rating: 5
-    },
-    {
-      name: "João Santos",
-      building: "Residencial Gardens",
-      text: "Profissionalismo exemplar. Nosso condomínio nunca esteve tão bem administrado.",
-      rating: 5
-    },
-    {
-      name: "Ana Costa",
-      building: "Edifício Premium",
-      text: "Hub completo de soluções. Tudo que precisamos em um só lugar com qualidade superior.",
-      rating: 5
-    }
-  ];
+  // Usar depoimentos do AdminContext
+  const testimonials = siteConfig.testimonials;
 
   const stats = [
     { number: "150+", label: "Condomínios Atendidos" },
@@ -192,7 +178,35 @@ export default function Home() {
             <div className="flex items-center space-x-2 sm:space-x-4">
               <ThemeToggle />
               
-              {/* Desktop Navigation */}
+              {/* Desktop Navigation - Menu Links */}
+              <nav className="hidden xl:flex items-center space-x-1 mr-4">
+                <button
+                  onClick={() => document.getElementById('sobre')?.scrollIntoView({ behavior: 'smooth' })}
+                  className={`px-3 py-2 rounded-lg font-medium text-sm transition-all ${
+                    isDark ? 'text-slate-300 hover:text-white hover:bg-white/10' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
+                  }`}
+                >
+                  Sobre
+                </button>
+                <button
+                  onClick={() => setShowAdvancedProposal(true)}
+                  className={`px-3 py-2 rounded-lg font-medium text-sm transition-all ${
+                    isDark ? 'text-slate-300 hover:text-white hover:bg-white/10' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
+                  }`}
+                >
+                  Serviços
+                </button>
+                <button
+                  onClick={() => document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })}
+                  className={`px-3 py-2 rounded-lg font-medium text-sm transition-all ${
+                    isDark ? 'text-slate-300 hover:text-white hover:bg-white/10' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
+                  }`}
+                >
+                  Calculadora
+                </button>
+              </nav>
+
+              {/* Desktop Navigation - Action Buttons */}
               <div className="hidden lg:flex items-center space-x-3">
                 <button
                   onClick={() => setShowAdvancedProposal(true)}
@@ -228,7 +242,20 @@ export default function Home() {
                     <span>Admin</span>
                   </button>
                 )}
-                {!isAuthenticated && (
+                {isAuthenticated ? (
+                  <button
+                    onClick={() => window.location.href = import.meta.env.VITE_PORTAL_URL || 'http://localhost:3000'}
+                    className={`px-4 py-3 rounded-full font-semibold transition-all duration-300 flex items-center space-x-2 hover:scale-105 ${
+                      isDark 
+                        ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:shadow-glow' 
+                        : 'bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:shadow-glow-light'
+                    }`}
+                    data-testid="portal-button"
+                  >
+                    <Building2 className="w-4 h-4" />
+                    <span>Ir para Portal</span>
+                  </button>
+                ) : (
                   <button
                     onClick={() => navigate('/login')}
                     className={`px-4 py-3 rounded-full font-semibold transition-all duration-300 flex items-center space-x-2 ${
@@ -239,7 +266,7 @@ export default function Home() {
                     data-testid="login-button"
                   >
                     <LogIn className="w-4 h-4" />
-                    <span>Portal</span>
+                    <span>Fazer Login</span>
                   </button>
                 )}
               </div>
@@ -619,9 +646,9 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
+            {testimonials.map((testimonial) => (
               <div
-                key={index}
+                key={testimonial.id}
                 className={`p-8 rounded-3xl transition-all duration-300 ${
                   isDark ? 'glass-effect hover:bg-white/20' : 'glass-effect-light hover:bg-black/10'
                 }`}
@@ -634,13 +661,20 @@ export default function Home() {
                 <p className={`mb-6 italic ${isDark ? 'text-slate-300' : 'text-gray-600'}`}>
                   "{testimonial.text}"
                 </p>
-                <div>
-                  <p className={`font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                    {testimonial.name}
-                  </p>
-                  <p className={`text-sm ${isDark ? 'text-cyan-300' : 'text-cyan-600'}`}>
-                    {testimonial.building}
-                  </p>
+                <div className="flex items-center space-x-3">
+                  <img 
+                    src={testimonial.image} 
+                    alt={testimonial.name}
+                    className="w-12 h-12 rounded-full"
+                  />
+                  <div>
+                    <p className={`font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                      {testimonial.name}
+                    </p>
+                    <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-gray-600'}`}>
+                      {testimonial.role} - {testimonial.company}
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -752,6 +786,67 @@ export default function Home() {
                 R. João Eugênio de Lima, 143 Sala 1<br />Boa Viagem, Recife/PE
               </p>
               <p className={`text-sm mt-1 ${isDark ? 'text-cyan-300' : 'text-cyan-600'}`}>CEP: 51021-070</p>
+            </div>
+          </div>
+
+          {/* Social Media */}
+          <div className="mt-16 text-center">
+            <h3 className={`text-2xl font-bold mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+              Siga-nos nas Redes Sociais
+            </h3>
+            <div className="flex justify-center space-x-6">
+              {siteConfig.socialMedia.facebook && (
+                <a
+                  href={siteConfig.socialMedia.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`p-4 rounded-2xl transition-all duration-300 hover:scale-110 ${
+                    isDark ? 'glass-effect hover:bg-white/20' : 'glass-effect-light hover:bg-black/10'
+                  }`}
+                  data-testid="social-facebook"
+                >
+                  <Facebook className={`w-6 h-6 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
+                </a>
+              )}
+              {siteConfig.socialMedia.instagram && (
+                <a
+                  href={siteConfig.socialMedia.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`p-4 rounded-2xl transition-all duration-300 hover:scale-110 ${
+                    isDark ? 'glass-effect hover:bg-white/20' : 'glass-effect-light hover:bg-black/10'
+                  }`}
+                  data-testid="social-instagram"
+                >
+                  <Instagram className={`w-6 h-6 ${isDark ? 'text-pink-400' : 'text-pink-600'}`} />
+                </a>
+              )}
+              {siteConfig.socialMedia.linkedin && (
+                <a
+                  href={siteConfig.socialMedia.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`p-4 rounded-2xl transition-all duration-300 hover:scale-110 ${
+                    isDark ? 'glass-effect hover:bg-white/20' : 'glass-effect-light hover:bg-black/10'
+                  }`}
+                  data-testid="social-linkedin"
+                >
+                  <Linkedin className={`w-6 h-6 ${isDark ? 'text-blue-400' : 'text-blue-600'}`} />
+                </a>
+              )}
+              {siteConfig.socialMedia.youtube && (
+                <a
+                  href={siteConfig.socialMedia.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`p-4 rounded-2xl transition-all duration-300 hover:scale-110 ${
+                    isDark ? 'glass-effect hover:bg-white/20' : 'glass-effect-light hover:bg-black/10'
+                  }`}
+                  data-testid="social-youtube"
+                >
+                  <Youtube className={`w-6 h-6 ${isDark ? 'text-red-400' : 'text-red-600'}`} />
+                </a>
+              )}
             </div>
           </div>
         </div>
