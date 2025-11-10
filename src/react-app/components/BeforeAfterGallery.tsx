@@ -22,6 +22,11 @@ export default function BeforeAfterGallery() {
     setShowBefore(true);
   };
 
+  // Se não houver imagens, retornar null
+  if (transformations.length === 0) {
+    return null;
+  }
+
   const current = transformations[currentIndex];
 
   return (
