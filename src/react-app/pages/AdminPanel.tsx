@@ -14,7 +14,14 @@ import {
   ToggleRight,
   Package,
   FileText,
-  TrendingUp
+  TrendingUp,
+  Palette,
+  Image as ImageIcon,
+  Star,
+  Share2,
+  Sparkles,
+  Plus,
+  Trash2
 } from 'lucide-react';
 import { useAuth } from '@/react-app/contexts/AuthContext';
 import { useAdmin } from '@/react-app/contexts/AdminContext';
