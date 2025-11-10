@@ -363,6 +363,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
+      {isSectionEnabled('about') && (
       <section id="sobre" className={`py-20 px-4 sm:px-6 lg:px-8 ${
         isDark ? 'bg-slate-900/50' : 'bg-gray-100/50'
       }`}>
