@@ -209,6 +209,82 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     return section?.enabled ?? true;
   }, [siteConfig.sections]);
 
+  const updateHeroConfig = useCallback((config: Partial<HeroConfig>) => {
+    setSiteConfig(prev => ({
+      ...prev,
+      heroConfig: { ...prev.heroConfig, ...config }
+    }));
+  }, [setSiteConfig]);
+
+  const updateColorScheme = useCallback((colors: Partial<ColorScheme>) => {
+    setSiteConfig(prev => ({
+      ...prev,
+      colorScheme: { ...prev.colorScheme, ...colors }
+    }));
+  }, [setSiteConfig]);
+
+  const updateSocialMedia = useCallback((social: Partial<SiteConfig['socialMedia']>) => {
+    setSiteConfig(prev => ({
+      ...prev,
+      socialMedia: { ...prev.socialMedia, ...social }
+    }));
+  }, [setSiteConfig]);
+
+  const addTestimonial = useCallback((testimonial: SiteConfig['testimonials'][0]) => {
+    setSiteConfig(prev => ({
+      ...prev,
+      testimonials: [...prev.testimonials, testimonial]
+    }));
+  }, [setSiteConfig]);
+
+  const updateTestimonial = useCallback((id: string, testimonial: Partial<SiteConfig['testimonials'][0]>) => {
+    setSiteConfig(prev => ({
+      ...prev,
+      testimonials: prev.testimonials.map(t => 
+        t.id === id ? { ...t, ...testimonial } : t
+      )
+    }));
+  }, [setSiteConfig]);
+
+  const deleteTestimonial = useCallback((id: string) => {
+    setSiteConfig(prev => ({
+      ...prev,
+      testimonials: prev.testimonials.filter(t => t.id !== id)
+    }));
+  }, [setSiteConfig]);
+
+  const addGalleryImage = useCallback((image: SiteConfig['gallery']['beforeAfterImages'][0]) => {
+    setSiteConfig(prev => ({
+      ...prev,
+      gallery: {
+        ...prev.gallery,
+        beforeAfterImages: [...prev.gallery.beforeAfterImages, image]
+      }
+    }));
+  }, [setSiteConfig]);
+
+  const updateGalleryImage = useCallback((id: string, image: Partial<SiteConfig['gallery']['beforeAfterImages'][0]>) => {
+    setSiteConfig(prev => ({
+      ...prev,
+      gallery: {
+        ...prev.gallery,
+        beforeAfterImages: prev.gallery.beforeAfterImages.map(img => 
+          img.id === id ? { ...img, ...image } : img
+        )
+      }
+    }));
+  }, [setSiteConfig]);
+
+  const deleteGalleryImage = useCallback((id: string) => {
+    setSiteConfig(prev => ({
+      ...prev,
+      gallery: {
+        ...prev.gallery,
+        beforeAfterImages: prev.gallery.beforeAfterImages.filter(img => img.id !== id)
+      }
+    }));
+  }, [setSiteConfig]);
+
   return (
     <AdminContext.Provider
       value={{
@@ -218,7 +294,16 @@ export function AdminProvider({ children }: { children: ReactNode }) {
         updateService,
         toggleSection,
         resetToDefaults,
-        isSectionEnabled
+        isSectionEnabled,
+        updateHeroConfig,
+        updateColorScheme,
+        updateSocialMedia,
+        addTestimonial,
+        updateTestimonial,
+        deleteTestimonial,
+        addGalleryImage,
+        updateGalleryImage,
+        deleteGalleryImage
       }}
     >
       {children}
