@@ -3,19 +3,13 @@ import { useNavigate } from 'react-router';
 import { 
   Settings, 
   DollarSign, 
-  Save, 
-  RotateCcw,
   LogOut,
   Home,
-  Edit3,
   ToggleLeft,
-  ToggleRight,
   Image as ImageIcon,
   Star,
   Share2,
   Sparkles,
-  Plus,
-  Trash2,
   HelpCircle
 } from 'lucide-react';
 import { useAuth } from '@/react-app/contexts/AuthContext';
@@ -28,29 +22,11 @@ import ThemeToggle from '@/react-app/components/ThemeToggle';
 export default function AdminPanel() {
   const { isDark } = useTheme();
   const { user, logout, isMaster } = useAuth();
-  const { siteConfig, services, updateSiteConfig, updateService, toggleSection, resetToDefaults, isSectionEnabled } = useAdmin();
+  const { siteConfig } = useAdmin();
   const navigate = useNavigate();
   const toast = useToast();
 
   const [activeTab, setActiveTab] = useState<'general' | 'sections' | 'services' | 'hero' | 'gallery' | 'testimonials' | 'social' | 'faq'>('general');
-  const [editingService, setEditingService] = useState<string | null>(null);
-
-  const handleSaveConfig = () => {
-    updateSiteConfig(siteConfig);
-    toast.success('✅ Configurações salvas com sucesso!');
-  };
-
-  const handleResetDefaults = () => {
-    if (window.confirm('⚠️ Tem certeza que deseja restaurar todas as configurações padrão? Esta ação não pode ser desfeita.')) {
-      resetToDefaults();
-      toast.success('✅ Configurações restauradas!');
-    }
-  };
-
-  const handleServiceUpdate = (serviceId: string, field: string, value: any) => {
-    updateService(serviceId, { [field]: value });
-    toast.success('✅ Serviço atualizado!');
-  };
 
   const handleLogout = () => {
     logout();
