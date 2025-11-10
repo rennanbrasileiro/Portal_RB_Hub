@@ -142,7 +142,7 @@ export default function MobileMenu({ onOpenProposal, onOpenContact }: MobileMenu
                   ? 'hover:bg-slate-800 text-slate-300 hover:text-white' 
                   : 'hover:bg-gray-100 text-gray-600 hover:text-gray-900'
               }`}
-              aria-label=\"Fechar menu\"
+              aria-label="Fechar menu"
             >
               <X className=\"w-6 h-6\" />
             </button>
