@@ -668,6 +668,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
+      {isSectionEnabled('contact') && (
       <section className={`py-20 px-4 sm:px-6 lg:px-8 ${isDark ? 'bg-slate-900/50' : 'bg-gray-100/50'}`}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
