@@ -34,7 +34,11 @@ import {
   AlertTriangle,
   FileText,
   Settings,
-  LogIn
+  LogIn,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Youtube
 } from 'lucide-react';
 import { useTheme } from '@/react-app/contexts/ThemeContext';
 import ThemeToggle from '@/react-app/components/ThemeToggle';
