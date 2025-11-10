@@ -83,45 +83,63 @@ export default function AdminPanel() {
         isDark ? 'glass-effect shadow-2xl' : 'glass-effect-light shadow-xl border-b border-gray-200/50'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-20">
+            {/* Left Section - Logo & Title */}
             <div className="flex items-center space-x-4">
-              <Settings className={`w-8 h-8 ${
-                isDark ? 'text-cyan-400' : 'text-cyan-600'
-              }`} />
+              <div className={`p-2 rounded-xl ${
+                isDark ? 'bg-cyan-500/20' : 'bg-cyan-100'
+              }`}>
+                <Settings className={`w-7 h-7 ${
+                  isDark ? 'text-cyan-400' : 'text-cyan-600'
+                }`} />
+              </div>
               <div>
                 <h1 className={`text-xl font-bold ${
                   isDark ? 'text-white' : 'text-gray-900'
                 }`}>
-                  Painel Administrativo
+                  Painel Administrativo RB HUB
                 </h1>
-                <p className={`text-xs ${
+                <p className={`text-sm flex items-center space-x-2 ${
                   isDark ? 'text-slate-400' : 'text-gray-600'
                 }`}>
-                  Bem-vindo, {user?.name}
+                  <span>👋 Olá, <strong>{user?.name}</strong></span>
+                  <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
+                    isDark ? 'bg-purple-500/20 text-purple-400' : 'bg-purple-100 text-purple-700'
+                  }`}>
+                    Master
+                  </span>
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center space-x-3">
+            {/* Right Section - Actions */}
+            <div className="flex items-center space-x-2 sm:space-x-3">
               <ThemeToggle />
+              
+              {/* Voltar ao Portal Principal */}
               <button
                 onClick={() => navigate('/')}
-                className={`px-4 py-2 rounded-xl font-semibold transition-all flex items-center space-x-2 ${
+                className={`px-4 py-2.5 rounded-xl font-semibold transition-all flex items-center space-x-2 hover:scale-105 ${
                   isDark 
-                    ? 'bg-slate-700 text-white hover:bg-slate-600' 
-                    : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                    ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white hover:shadow-lg' 
+                    : 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:shadow-lg'
                 }`}
+                data-testid="back-to-portal-button"
               >
                 <Home className="w-4 h-4" />
-                <span className="hidden sm:inline">Site</span>
+                <span className="hidden md:inline">Portal Principal</span>
+                <span className="md:hidden">Portal</span>
               </button>
+              
+              {/* Logout */}
               <button
                 onClick={handleLogout}
-                className={`px-4 py-2 rounded-xl font-semibold transition-all flex items-center space-x-2 ${
+                className={`px-4 py-2.5 rounded-xl font-semibold transition-all flex items-center space-x-2 hover:scale-105 ${
                   isDark 
-                    ? 'bg-red-500/20 text-red-400 hover:bg-red-500/30' 
-                    : 'bg-red-100 text-red-700 hover:bg-red-200'
+                    ? 'bg-red-500/20 text-red-400 hover:bg-red-500/30 border border-red-500/30' 
+                    : 'bg-red-100 text-red-700 hover:bg-red-200 border border-red-200'
                 }`}
+                data-testid="admin-logout-button"
               >
                 <LogOut className="w-4 h-4" />
                 <span className="hidden sm:inline">Sair</span>
