@@ -38,6 +38,7 @@ import {
 } from 'lucide-react';
 import { useTheme } from '@/react-app/contexts/ThemeContext';
 import ThemeToggle from '@/react-app/components/ThemeToggle';
+import MobileMenu from '@/react-app/components/MobileMenu';
 import ProcessTimeline from '@/react-app/components/ProcessTimeline';
 import BeforeAfterGallery from '@/react-app/components/BeforeAfterGallery';
 import InteractiveFAQ from '@/react-app/components/InteractiveFAQ';
