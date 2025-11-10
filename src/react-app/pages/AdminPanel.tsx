@@ -37,7 +37,7 @@ export default function AdminPanel() {
   const navigate = useNavigate();
   const toast = useToast();
 
-  const [activeTab, setActiveTab] = useState<'general' | 'sections' | 'services' | 'hero' | 'gallery' | 'testimonials' | 'social'>('general');
+  const [activeTab, setActiveTab] = useState<'general' | 'sections' | 'services' | 'hero' | 'gallery' | 'testimonials' | 'social' | 'faq'>('general');
   const [editingService, setEditingService] = useState<string | null>(null);
   const [localConfig, setLocalConfig] = useState(siteConfig);
 
