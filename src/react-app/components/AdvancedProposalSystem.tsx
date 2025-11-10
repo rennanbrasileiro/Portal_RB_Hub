@@ -37,47 +37,7 @@ interface AdvancedProposalSystemProps {
   onClose: () => void;
 }
 
-// Complete service catalog based on provided documentation
-const serviceCategories = {
-  sindico_professional: {
-    name: 'Síndico Profissional',
-    icon: Building2,
-    color: 'from-blue-500 to-blue-600',
-    description: 'Gestão administrativa e financeira completa'
-  },
-  maintenance_facilities: {
-    name: 'Manutenção & Facilities',
-    icon: Wrench,
-    color: 'from-orange-500 to-red-500',
-    description: 'Serviços de manutenção e zeladoria'
-  },
-  security_automation: {
-    name: 'Segurança & Automação',
-    icon: Shield,
-    color: 'from-red-500 to-pink-500',
-    description: 'Sistemas de segurança e controle'
-  },
-  technology_digital: {
-    name: 'Tecnologia & Digital',
-    icon: Wifi,
-    color: 'from-purple-500 to-indigo-500',
-    description: 'Soluções digitais e tecnológicas'
-  },
-  esg_sustainability: {
-    name: 'ESG & Sustentabilidade',
-    icon: Leaf,
-    color: 'from-green-500 to-emerald-500',
-    description: 'Práticas sustentáveis e responsabilidade social'
-  },
-  corporate_isolated: {
-    name: 'Serviços Corporativos',
-    icon: Briefcase,
-    color: 'from-gray-500 to-slate-600',
-    description: 'Consultoria empresarial e soluções isoladas'
-  }
-};
-
-const allServices: ServiceType[] = [
+// Services data imported from shared file
   // Predefined Professional Sindico Services
   {
     id: 'gestao_administrativa',
