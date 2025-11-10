@@ -619,12 +619,13 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
       {/* Competitive Comparison */}
-      <CompetitiveComparison />
+      {isSectionEnabled('comparison') && <CompetitiveComparison />}
 
       {/* Interactive FAQ */}
-      <InteractiveFAQ />
+      {isSectionEnabled('faq') && <InteractiveFAQ />}
 
       {/* CTA Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-cyan-600 to-blue-700 relative overflow-hidden">
