@@ -30,7 +30,7 @@ import {
   FileText
 } from 'lucide-react';
 import { useTheme } from '@/react-app/contexts/ThemeContext';
-import ThemeToggle from '@/react-app/components/ThemeToggle';
+import Navigation from '@/react-app/components/Navigation';
 import ProcessTimeline from '@/react-app/components/ProcessTimeline';
 import BeforeAfterGallery from '@/react-app/components/BeforeAfterGallery';
 import InteractiveFAQ from '@/react-app/components/InteractiveFAQ';
