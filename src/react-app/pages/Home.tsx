@@ -601,9 +601,9 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
+            {testimonials.map((testimonial) => (
               <div
-                key={index}
+                key={testimonial.id}
                 className={`p-8 rounded-3xl transition-all duration-300 ${
                   isDark ? 'glass-effect hover:bg-white/20' : 'glass-effect-light hover:bg-black/10'
                 }`}
@@ -616,13 +616,20 @@ export default function Home() {
                 <p className={`mb-6 italic ${isDark ? 'text-slate-300' : 'text-gray-600'}`}>
                   "{testimonial.text}"
                 </p>
-                <div>
-                  <p className={`font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                    {testimonial.name}
-                  </p>
-                  <p className={`text-sm ${isDark ? 'text-cyan-300' : 'text-cyan-600'}`}>
-                    {testimonial.building}
-                  </p>
+                <div className="flex items-center space-x-3">
+                  <img 
+                    src={testimonial.image} 
+                    alt={testimonial.name}
+                    className="w-12 h-12 rounded-full"
+                  />
+                  <div>
+                    <p className={`font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                      {testimonial.name}
+                    </p>
+                    <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-gray-600'}`}>
+                      {testimonial.role} - {testimonial.company}
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}
