@@ -747,6 +747,67 @@ export default function Home() {
               <p className={`text-sm mt-1 ${isDark ? 'text-cyan-300' : 'text-cyan-600'}`}>CEP: 51021-070</p>
             </div>
           </div>
+
+          {/* Social Media */}
+          <div className="mt-16 text-center">
+            <h3 className={`text-2xl font-bold mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+              Siga-nos nas Redes Sociais
+            </h3>
+            <div className="flex justify-center space-x-6">
+              {siteConfig.socialMedia.facebook && (
+                <a
+                  href={siteConfig.socialMedia.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`p-4 rounded-2xl transition-all duration-300 hover:scale-110 ${
+                    isDark ? 'glass-effect hover:bg-white/20' : 'glass-effect-light hover:bg-black/10'
+                  }`}
+                  data-testid="social-facebook"
+                >
+                  <Facebook className={`w-6 h-6 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
+                </a>
+              )}
+              {siteConfig.socialMedia.instagram && (
+                <a
+                  href={siteConfig.socialMedia.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`p-4 rounded-2xl transition-all duration-300 hover:scale-110 ${
+                    isDark ? 'glass-effect hover:bg-white/20' : 'glass-effect-light hover:bg-black/10'
+                  }`}
+                  data-testid="social-instagram"
+                >
+                  <Instagram className={`w-6 h-6 ${isDark ? 'text-pink-400' : 'text-pink-600'}`} />
+                </a>
+              )}
+              {siteConfig.socialMedia.linkedin && (
+                <a
+                  href={siteConfig.socialMedia.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`p-4 rounded-2xl transition-all duration-300 hover:scale-110 ${
+                    isDark ? 'glass-effect hover:bg-white/20' : 'glass-effect-light hover:bg-black/10'
+                  }`}
+                  data-testid="social-linkedin"
+                >
+                  <Linkedin className={`w-6 h-6 ${isDark ? 'text-blue-400' : 'text-blue-600'}`} />
+                </a>
+              )}
+              {siteConfig.socialMedia.youtube && (
+                <a
+                  href={siteConfig.socialMedia.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`p-4 rounded-2xl transition-all duration-300 hover:scale-110 ${
+                    isDark ? 'glass-effect hover:bg-white/20' : 'glass-effect-light hover:bg-black/10'
+                  }`}
+                  data-testid="social-youtube"
+                >
+                  <Youtube className={`w-6 h-6 ${isDark ? 'text-red-400' : 'text-red-600'}`} />
+                </a>
+              )}
+            </div>
+          </div>
         </div>
       </section>
       )}
