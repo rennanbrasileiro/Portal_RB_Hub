@@ -144,14 +144,6 @@ export default function AdvancedProposalSystem({ onClose }: AdvancedProposalSyst
   // Filter services based on search and category
   const filteredServices = useMemo(() => {
     return allServices.filter(service => {
-    name: 'Prestação de Contas e Balancetes',
-    category: 'sindico_professional',
-    description: 'Relatórios financeiros mensais e transparência total',
-    isPredefined: true,
-    isRecurring: true,
-    unit: 'monthly',
-    tags: ['relatórios', 'balancetes', 'transparência']
-  },
   {
     id: 'controle_inadimplencia',
     name: 'Controle de Inadimplência',
