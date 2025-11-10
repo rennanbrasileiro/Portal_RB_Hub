@@ -478,9 +478,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
       {/* Process Timeline */}
-      <ProcessTimeline />
+      {isSectionEnabled('timeline') && <ProcessTimeline />}
 
       {/* Additional Services */}
       <section className={`py-20 px-4 sm:px-6 lg:px-8 ${isDark ? 'bg-slate-900/50' : 'bg-gray-100/50'}`}>
