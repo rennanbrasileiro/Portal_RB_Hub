@@ -54,8 +54,16 @@ export default function MobileMenu({ onOpenProposal, onOpenContact }: MobileMenu
       highlight: true
     },
     { 
+      icon: Calculator, 
+      label: 'Calculadora', 
+      action: () => {
+        document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' });
+        setIsOpen(false);
+      }
+    },
+    { 
       icon: Phone, 
-      label: 'Contato Rápido', 
+      label: 'Contato', 
       action: () => {
         onOpenContact();
         setIsOpen(false);
