@@ -22,7 +22,6 @@ import ThemeToggle from '@/react-app/components/ThemeToggle';
 export default function AdminPanel() {
   const { isDark } = useTheme();
   const { user, logout, isMaster } = useAuth();
-  const { siteConfig } = useAdmin();
   const navigate = useNavigate();
   const toast = useToast();
 
