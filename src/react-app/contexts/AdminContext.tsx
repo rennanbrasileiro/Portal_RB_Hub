@@ -66,6 +66,13 @@ interface SiteConfig {
     text: string;
     rating: number;
   }>;
+  faq: Array<{
+    id: string;
+    question: string;
+    answer: string;
+    category: string;
+    order: number;
+  }>;
 }
 
 interface AdminContextType {
