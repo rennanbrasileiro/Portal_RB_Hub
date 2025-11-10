@@ -97,18 +97,18 @@ export default function MobileMenu({ onOpenProposal, onOpenContact }: MobileMenu
             ? 'hover:bg-slate-700 text-white' 
             : 'hover:bg-gray-100 text-gray-900'
         }`}
-        aria-label=\"Abrir menu\"
-        data-testid=\"mobile-menu-button\"
+        aria-label="Abrir menu"
+        data-testid="mobile-menu-button"
       >
-        <Menu className=\"w-6 h-6\" />
+        <Menu className="w-6 h-6" />
       </button>
 
       {/* Overlay */}
       {isOpen && (
         <div
-          className=\"fixed inset-0 bg-black/60 backdrop-blur-sm z-50 lg:hidden animate-fade-in\"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 lg:hidden animate-fade-in"
           onClick={() => setIsOpen(false)}
-          data-testid=\"mobile-menu-overlay\"
+          data-testid="mobile-menu-overlay"
         />
       )}
 
@@ -121,18 +121,18 @@ export default function MobileMenu({ onOpenProposal, onOpenContact }: MobileMenu
             ? 'bg-slate-900 border-l border-slate-700' 
             : 'bg-white border-l border-gray-200'
         }`}
-        data-testid=\"mobile-menu-panel\"
+        data-testid="mobile-menu-panel"
       >
-        <div className=\"flex flex-col h-full\">
+        <div className="flex flex-col h-full">
           {/* Header */}
           <div className={`flex items-center justify-between p-6 border-b ${
             isDark ? 'border-slate-700' : 'border-gray-200'
           }`}>
-            <div className=\"flex items-center space-x-3\">
+            <div className="flex items-center space-x-3">
               <img 
-                src=\"https://mocha-cdn.com/019a4c3a-1129-78a3-9d58-262da3722e9c/rb-hub-logo.png\" 
-                alt=\"RB HUB\" 
-                className=\"h-10 w-auto drop-shadow-lg\"
+                src="https://mocha-cdn.com/019a4c3a-1129-78a3-9d58-262da3722e9c/rb-hub-logo.png" 
+                alt="RB HUB" 
+                className="h-10 w-auto drop-shadow-lg"
               />
             </div>
             <button
@@ -142,15 +142,15 @@ export default function MobileMenu({ onOpenProposal, onOpenContact }: MobileMenu
                   ? 'hover:bg-slate-800 text-slate-300 hover:text-white' 
                   : 'hover:bg-gray-100 text-gray-600 hover:text-gray-900'
               }`}
-              aria-label=\"Fechar menu\"
+              aria-label="Fechar menu"
             >
-              <X className=\"w-6 h-6\" />
+              <X className="w-6 h-6" />
             </button>
           </div>
 
           {/* Menu Items */}
-          <nav className=\"flex-1 overflow-y-auto p-4\">
-            <div className=\"space-y-2\">
+          <nav className="flex-1 overflow-y-auto p-4">
+            <div className="space-y-2">
               {menuItems.map((item, index) => {
                 const Icon = item.icon;
                 return (
@@ -164,10 +164,10 @@ export default function MobileMenu({ onOpenProposal, onOpenContact }: MobileMenu
                           ? 'hover:bg-slate-800 text-slate-300 hover:text-white'
                           : 'hover:bg-gray-100 text-gray-700 hover:text-gray-900'
                     }`}
-                    data-testid={`mobile-menu-item-${item.label.toLowerCase().replace(/\\s+/g, '-')}`}
+                    data-testid={`mobile-menu-item-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
                   >
-                    <Icon className=\"w-5 h-5 flex-shrink-0\" />
-                    <span className=\"text-left\">{item.label}</span>
+                    <Icon className="w-5 h-5 flex-shrink-0" />
+                    <span className="text-left">{item.label}</span>
                   </button>
                 );
               })}
@@ -181,7 +181,7 @@ export default function MobileMenu({ onOpenProposal, onOpenContact }: MobileMenu
             <div className={`text-center text-xs ${
               isDark ? 'text-slate-400' : 'text-gray-500'
             }`}>
-              <p className=\"font-semibold mb-1\">RB HUB Soluções</p>
+              <p className="font-semibold mb-1">RB HUB Soluções</p>
               <p>Gestão Condominial Completa</p>
             </div>
           </div>
