@@ -666,7 +666,7 @@ export default function Home() {
       {/* Proposal Form Modal */}
       {showProposalForm && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className={`rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl ${
+          <div className={`rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-hidden shadow-2xl ${
             isDark ? 'bg-slate-900' : 'bg-white'
           }`}>
             <div className="sticky top-0 bg-gradient-to-r from-cyan-600 to-blue-700 p-6 rounded-t-3xl">
@@ -681,7 +681,9 @@ export default function Home() {
               </div>
             </div>
             
-            <form className="p-8 space-y-6">
+            <form className={`p-8 space-y-6 overflow-y-auto max-h-[calc(90vh-88px)] ${
+              isDark ? 'custom-scrollbar' : 'custom-scrollbar-light'
+            }`}>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label className={`block font-semibold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>
