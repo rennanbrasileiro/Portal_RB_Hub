@@ -5,6 +5,7 @@ import { useAuth } from '@/react-app/contexts/AuthContext';
 import { useTheme } from '@/react-app/contexts/ThemeContext';
 import { useToast } from '@/react-app/hooks/useToast';
 import { ToastContainer } from '@/react-app/components/ToastNotification';
+import { navigateToPortal } from '@/shared/config';
 
 export default function Login() {
   const { isDark } = useTheme();
