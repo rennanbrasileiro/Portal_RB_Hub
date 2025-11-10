@@ -1334,8 +1334,7 @@ Aguardo retorno para agendamento de visita técnica.
             {step < 4 && (
               <button
                 onClick={() => setStep(step + 1)}
-                disabled={step === 1 && selectedServices.length === 0}
-                className={`px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-xl transition-all duration-300 hover:scale-105 flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed ${
+                className={`px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-xl transition-all duration-300 hover:scale-105 flex items-center space-x-2 ${
                   isDark ? 'hover:shadow-glow' : 'hover:shadow-glow-light'
                 }`}
               >
