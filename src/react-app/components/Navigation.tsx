@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, LogIn, LogOut, Settings } from 'lucide-react';
+import { useNavigate } from 'react-router';
 import { useTheme } from '@/react-app/contexts/ThemeContext';
+import { useAuth } from '@/react-app/contexts/AuthContext';
 import ThemeToggle from '@/react-app/components/ThemeToggle';
 
 interface NavigationProps {
