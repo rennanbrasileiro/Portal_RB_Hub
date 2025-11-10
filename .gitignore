@@ -3,3 +3,11 @@ node_modules/
 .wrangler/
 .dev.vars
 worker-configuration.d.ts
+-e 
+# Environment files
+*.env
+*.env.*
+-e 
+# Environment files
+*.env
+*.env.*
