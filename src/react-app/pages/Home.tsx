@@ -857,6 +857,9 @@ export default function Home() {
 
       {/* Floating Actions */}
       <FloatingActions onOpenProposal={() => setShowAdvancedProposal(true)} />
+
+      {/* Toast Notifications */}
+      <ToastContainer toasts={toast.toasts} onClose={toast.removeToast} />
     </div>
   );
 }
