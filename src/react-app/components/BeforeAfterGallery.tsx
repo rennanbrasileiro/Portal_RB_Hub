@@ -107,21 +107,24 @@ export default function BeforeAfterGallery() {
                 <h3 className={`text-2xl font-bold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                   {current.title}
                 </h3>
-                <p className={`flex items-center space-x-2 ${isDark ? 'text-cyan-300' : 'text-cyan-600'}`}>
-                  <span>{current.location}</span>
+                <p className={`${isDark ? 'text-slate-300' : 'text-gray-600'}`}>
+                  {current.description}
                 </p>
               </div>
 
-              {/* Services */}
-              <div className="mb-6">
-                <h4 className={`font-bold mb-3 ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                  Serviços Realizados
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {current.services.map((service, index) => (
-                    <span
-                      key={index}
-                      className={`px-3 py-1 rounded-full text-sm font-medium ${
+              {/* Pagination Dots */}
+              <div className="flex items-center space-x-2 mb-6">
+                {transformations.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      setCurrentIndex(index);
+                      setShowBefore(true);
+                    }}
+                    className={`h-2 rounded-full transition-all ${
+                      index === currentIndex 
+                        ? 'w-8 bg-gradient-to-r from-cyan-500 to-blue-600' 
+                        : `w-2 ${
                         isDark 
                           ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30' 
                           : 'bg-cyan-50 text-cyan-700 border border-cyan-200'
