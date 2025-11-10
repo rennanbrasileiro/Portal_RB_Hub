@@ -318,6 +318,29 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     }));
   }, [setSiteConfig]);
 
+  const addFAQ = useCallback((faq: SiteConfig['faq'][0]) => {
+    setSiteConfig(prev => ({
+      ...prev,
+      faq: [...prev.faq, faq]
+    }));
+  }, [setSiteConfig]);
+
+  const updateFAQ = useCallback((id: string, faq: Partial<SiteConfig['faq'][0]>) => {
+    setSiteConfig(prev => ({
+      ...prev,
+      faq: prev.faq.map(f => 
+        f.id === id ? { ...f, ...faq } : f
+      )
+    }));
+  }, [setSiteConfig]);
+
+  const deleteFAQ = useCallback((id: string) => {
+    setSiteConfig(prev => ({
+      ...prev,
+      faq: prev.faq.filter(f => f.id !== id)
+    }));
+  }, [setSiteConfig]);
+
   return (
     <AdminContext.Provider
       value={{
@@ -336,7 +359,10 @@ export function AdminProvider({ children }: { children: ReactNode }) {
         deleteTestimonial,
         addGalleryImage,
         updateGalleryImage,
-        deleteGalleryImage
+        deleteGalleryImage,
+        addFAQ,
+        updateFAQ,
+        deleteFAQ
       }}
     >
       {children}
