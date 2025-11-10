@@ -168,6 +168,29 @@ const DEFAULT_CONFIG: SiteConfig = {
       rating: 5
     }
   ],
+  faq: [
+    {
+      id: 'faq-1',
+      question: 'O que é um síndico profissional?',
+      answer: 'Um síndico profissional é um especialista certificado que assume a gestão administrativa e financeira do condomínio de forma integral, garantindo profissionalismo, transparência e economia na administração.',
+      category: 'Síndico Profissional',
+      order: 1
+    },
+    {
+      id: 'faq-2',
+      question: 'Quais serviços estão incluídos na gestão completa?',
+      answer: 'Nossa gestão inclui administração financeira, controle de inadimplência, organização de assembleias, gestão de contratos, manutenção preventiva e corretiva, além de suporte jurídico e contábil completo.',
+      category: 'Serviços',
+      order: 2
+    },
+    {
+      id: 'faq-3',
+      question: 'Como funciona o sistema de orçamento?',
+      answer: 'Você seleciona os serviços desejados em nosso catálogo, informa o número de unidades do condomínio, e recebemos uma estimativa instantânea. Após análise técnica, enviamos uma proposta detalhada personalizada.',
+      category: 'Orçamento',
+      order: 3
+    }
+  ],
   sections: [
     { id: 'hero', name: 'Seção Hero', enabled: true, order: 1 },
     { id: 'about', name: 'Sobre a Empresa', enabled: true, order: 2 },
