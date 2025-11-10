@@ -256,16 +256,33 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        <div className={`absolute inset-0 ${
-          isDark 
-            ? 'bg-[radial-gradient(circle_at_30%_50%,rgba(6,182,212,0.1),transparent_50%)]' 
-            : 'bg-[radial-gradient(circle_at_30%_50%,rgba(6,182,212,0.05),transparent_50%)]'
-        }`}></div>
-        <div className={`absolute inset-0 ${
-          isDark 
-            ? 'bg-[radial-gradient(circle_at_70%_80%,rgba(59,130,246,0.1),transparent_50%)]' 
-            : 'bg-[radial-gradient(circle_at_70%_80%,rgba(59,130,246,0.05),transparent_50%)]'
-        }`}></div>
+        {/* Background Image (if configured) */}
+        {siteConfig.heroConfig.backgroundImage && (
+          <div 
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${siteConfig.heroConfig.backgroundImage})` }}
+          >
+            <div className={`absolute inset-0 ${
+              isDark ? 'bg-black/70' : 'bg-white/70'
+            }`}></div>
+          </div>
+        )}
+        
+        {/* Gradient overlays (if no background image) */}
+        {!siteConfig.heroConfig.backgroundImage && (
+          <>
+            <div className={`absolute inset-0 ${
+              isDark 
+                ? 'bg-[radial-gradient(circle_at_30%_50%,rgba(6,182,212,0.1),transparent_50%)]' 
+                : 'bg-[radial-gradient(circle_at_30%_50%,rgba(6,182,212,0.05),transparent_50%)]'
+            }`}></div>
+            <div className={`absolute inset-0 ${
+              isDark 
+                ? 'bg-[radial-gradient(circle_at_70%_80%,rgba(59,130,246,0.1),transparent_50%)]' 
+                : 'bg-[radial-gradient(circle_at_70%_80%,rgba(59,130,246,0.05),transparent_50%)]'
+            }`}></div>
+          </>
+        )}
         
         <div className="max-w-7xl mx-auto relative">
           <div className="text-center space-y-8 animate-fade-in">
