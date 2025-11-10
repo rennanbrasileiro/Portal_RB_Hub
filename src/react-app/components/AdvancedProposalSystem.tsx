@@ -46,7 +46,7 @@ export default function AdvancedProposalSystem({ onClose }: AdvancedProposalSyst
   const [selectedCategory, setSelectedCategory] = useState<ServiceCategoryType | 'all'>('all');
   const [keepProfessionalSindico, setKeepProfessionalSindico] = useState(true);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
-  const [condominiumUnits, setCondominiumUnits] = useState(20);
+  const [condominiumUnits, setCondominiumUnits] = useState(10);
   const [formData, setFormData] = useState({
     clientName: '',
     clientEmail: '',
@@ -263,7 +263,7 @@ export default function AdvancedProposalSystem({ onClose }: AdvancedProposalSyst
                 <div className="flex items-center space-x-4">
                   <input
                     type="range"
-                    min="5"
+                    min="1"
                     max="500"
                     value={condominiumUnits}
                     onChange={(e) => setCondominiumUnits(parseInt(e.target.value))}
@@ -275,6 +275,9 @@ export default function AdvancedProposalSystem({ onClose }: AdvancedProposalSyst
                     {condominiumUnits}
                   </div>
                 </div>
+                <p className={`text-xs mt-2 ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>
+                  💡 Aceita desde 1 unidade (torre única) até 500 unidades
+                </p>
               </div>
             </div>
           </div>
