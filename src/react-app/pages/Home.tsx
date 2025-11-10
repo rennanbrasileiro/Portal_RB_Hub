@@ -279,16 +279,16 @@ export default function Home() {
             <h1 className={`text-5xl sm:text-6xl lg:text-7xl font-black leading-tight ${
               isDark ? 'text-white' : 'text-gray-900'
             }`}>
-              Bem-vindo ao
+              {siteConfig.heroConfig.title.split(' ').slice(0, -2).join(' ')}
               <span className="text-gradient from-cyan-500 via-blue-600 to-purple-600 block mt-2">
-                Futuro dos Condomínios
+                {siteConfig.heroConfig.title.split(' ').slice(-2).join(' ')}
               </span>
             </h1>
             
             <p className={`text-xl sm:text-2xl max-w-4xl mx-auto leading-relaxed font-manrope ${
               isDark ? 'text-slate-300' : 'text-gray-600'
             }`}>
-              <strong>Tudo que seu condomínio precisa em um só lugar.</strong> Síndico profissional certificado + gestão completa + todos os tipos de serviços especializados para manter seu patrimônio sempre valorizado.
+              {siteConfig.heroConfig.subtitle}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
@@ -298,8 +298,9 @@ export default function Home() {
                   className={`group px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-full transition-all duration-300 hover:scale-105 flex items-center space-x-2 ${
                     isDark ? 'hover:shadow-glow' : 'hover:shadow-glow-light'
                   }`}
+                  data-testid="hero-cta-primary"
                 >
-                  <span>Catálogo & Orçamento</span>
+                  <span>{siteConfig.heroConfig.ctaText}</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
                 <button
@@ -309,8 +310,9 @@ export default function Home() {
                       ? 'glass-effect text-white hover:bg-white/20' 
                       : 'glass-effect-light text-gray-700 hover:bg-black/10'
                   }`}
+                  data-testid="hero-cta-secondary"
                 >
-                  Contato Direto
+                  {siteConfig.heroConfig.ctaSecondaryText}
                 </button>
               </div>
               <a
