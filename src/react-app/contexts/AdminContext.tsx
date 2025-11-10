@@ -85,8 +85,70 @@ const DEFAULT_CONFIG: SiteConfig = {
   companyAddress: 'R. João Eugênio de Lima, 143 Sala 1, Boa Viagem, Recife/PE',
   whatsappNumber: '5581993119952',
   logo: 'https://mocha-cdn.com/019a4c3a-1129-78a3-9d58-262da3722e9c/rb-hub-logo.png',
-  heroTitle: 'Bem-vindo ao Futuro dos Condomínios',
-  heroSubtitle: 'Tudo que seu condomínio precisa em um só lugar. Síndico profissional certificado + gestão completa + todos os tipos de serviços especializados.',
+  favicon: 'https://mocha-cdn.com/019a4c3a-1129-78a3-9d58-262da3722e9c/rb-hub-logo.png',
+  heroConfig: {
+    title: 'Bem-vindo ao Futuro dos Condomínios',
+    subtitle: 'Tudo que seu condomínio precisa em um só lugar. Síndico profissional certificado + gestão completa + todos os tipos de serviços especializados.',
+    backgroundImage: '',
+    ctaText: 'Catálogo & Orçamento',
+    ctaSecondaryText: 'Contato Rápido',
+    showVideo: false,
+    videoUrl: ''
+  },
+  colorScheme: {
+    primary: '#06B6D4',
+    secondary: '#3B82F6',
+    accent: '#8B5CF6'
+  },
+  socialMedia: {
+    facebook: 'https://facebook.com/rbhubsolucoes',
+    instagram: 'https://instagram.com/rbhubsolucoes',
+    linkedin: 'https://linkedin.com/company/rbhubsolucoes',
+    youtube: 'https://youtube.com/@rbhubsolucoes'
+  },
+  seo: {
+    metaTitle: 'RB HUB - Gestão Condominial Completa | Síndico Profissional',
+    metaDescription: 'Síndico profissional certificado + gestão completa de condomínios. Manutenção, segurança, tecnologia e sustentabilidade em um só lugar.',
+    keywords: 'síndico profissional, gestão condominial, administração de condomínios, manutenção predial, Recife, PE'
+  },
+  gallery: {
+    beforeAfterImages: [
+      {
+        id: 'gallery-1',
+        before: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800',
+        after: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800',
+        title: 'Revitalização de Fachada',
+        description: 'Transformação completa da fachada com pintura e iluminação'
+      },
+      {
+        id: 'gallery-2',
+        before: 'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800',
+        after: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800',
+        title: 'Área de Lazer',
+        description: 'Modernização completa da área de lazer e piscina'
+      }
+    ]
+  },
+  testimonials: [
+    {
+      id: 'test-1',
+      name: 'Maria Silva',
+      role: 'Síndica',
+      company: 'Condomínio Solar das Palmeiras',
+      image: 'https://ui-avatars.com/api/?name=Maria+Silva&background=06B6D4&color=fff',
+      text: 'A RB HUB transformou a gestão do nosso condomínio. Profissionalismo e transparência em cada detalhe!',
+      rating: 5
+    },
+    {
+      id: 'test-2',
+      name: 'João Santos',
+      role: 'Morador',
+      company: 'Residencial Vista Mar',
+      image: 'https://ui-avatars.com/api/?name=Joao+Santos&background=3B82F6&color=fff',
+      text: 'Excelente serviço! A comunicação melhorou muito e os custos diminuíram.',
+      rating: 5
+    }
+  ],
   sections: [
     { id: 'hero', name: 'Seção Hero', enabled: true, order: 1 },
     { id: 'about', name: 'Sobre a Empresa', enabled: true, order: 2 },
