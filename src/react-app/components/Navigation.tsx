@@ -93,6 +93,47 @@ export default function Navigation({ scrolled, onOpenProposal, onOpenContact }: 
             >
               Contato
             </button>
+            
+            {/* Auth Buttons */}
+            {isAuthenticated && isMaster ? (
+              <>
+                <button
+                  onClick={() => navigate('/admin')}
+                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2 ${
+                    isDark 
+                      ? 'text-purple-400 hover:text-purple-300 hover:bg-purple-500/10' 
+                      : 'text-purple-600 hover:text-purple-700 hover:bg-purple-50'
+                  }`}
+                >
+                  <Settings className="w-4 h-4" />
+                  <span>Administração</span>
+                </button>
+                <button
+                  onClick={handleLogout}
+                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2 ${
+                    isDark 
+                      ? 'text-red-400 hover:text-red-300 hover:bg-red-500/10' 
+                      : 'text-red-600 hover:text-red-700 hover:bg-red-50'
+                  }`}
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>Sair</span>
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => navigate('/login')}
+                className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2 ${
+                  isDark 
+                    ? 'text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/10' 
+                    : 'text-cyan-600 hover:text-cyan-700 hover:bg-cyan-50'
+                }`}
+              >
+                <LogIn className="w-4 h-4" />
+                <span>Entrar</span>
+              </button>
+            )}
+            
             <button
               onClick={onOpenProposal}
               className="px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg"
