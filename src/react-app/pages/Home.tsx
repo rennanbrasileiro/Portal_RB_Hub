@@ -350,7 +350,7 @@ export default function Home() {
       </section>
 
       {/* Main Services Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section id="servicos" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className={`text-4xl sm:text-5xl font-black mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
