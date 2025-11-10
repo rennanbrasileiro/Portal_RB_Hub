@@ -46,6 +46,7 @@ export default function Home() {
   const [showProposalForm, setShowProposalForm] = useState(false);
   const [showAdvancedProposal, setShowAdvancedProposal] = useState(false);
   const { isDark } = useTheme();
+  const toast = useToast();
 
   useEffect(() => {
     const handleScroll = () => {
