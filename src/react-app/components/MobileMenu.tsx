@@ -97,7 +97,7 @@ export default function MobileMenu({ onOpenProposal, onOpenContact }: MobileMenu
             ? 'hover:bg-slate-700 text-white' 
             : 'hover:bg-gray-100 text-gray-900'
         }`}
-        aria-label=\"Abrir menu\"
+        aria-label="Abrir menu"
         data-testid=\"mobile-menu-button\"
       >
         <Menu className=\"w-6 h-6\" />
