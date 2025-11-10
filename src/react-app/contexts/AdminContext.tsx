@@ -10,6 +10,22 @@ interface SectionConfig {
   order: number;
 }
 
+interface HeroConfig {
+  title: string;
+  subtitle: string;
+  backgroundImage: string;
+  ctaText: string;
+  ctaSecondaryText: string;
+  showVideo: boolean;
+  videoUrl: string;
+}
+
+interface ColorScheme {
+  primary: string;
+  secondary: string;
+  accent: string;
+}
+
 interface SiteConfig {
   companyName: string;
   companyEmail: string;
@@ -17,9 +33,39 @@ interface SiteConfig {
   companyAddress: string;
   whatsappNumber: string;
   logo: string;
-  heroTitle: string;
-  heroSubtitle: string;
+  favicon: string;
+  heroConfig: HeroConfig;
+  colorScheme: ColorScheme;
   sections: SectionConfig[];
+  socialMedia: {
+    facebook: string;
+    instagram: string;
+    linkedin: string;
+    youtube: string;
+  };
+  seo: {
+    metaTitle: string;
+    metaDescription: string;
+    keywords: string;
+  };
+  gallery: {
+    beforeAfterImages: Array<{
+      id: string;
+      before: string;
+      after: string;
+      title: string;
+      description: string;
+    }>;
+  };
+  testimonials: Array<{
+    id: string;
+    name: string;
+    role: string;
+    company: string;
+    image: string;
+    text: string;
+    rating: number;
+  }>;
 }
 
 interface AdminContextType {
