@@ -31,8 +31,9 @@ export default function Login() {
     if (success) {
       toast.success('✅ Login realizado com sucesso!');
       setTimeout(() => {
-        // Redirecionar para o portal externo
-        window.location.href = 'https://github.com/rennanbrasileiro/CondoHUB_Portal.git';
+        // Redirecionar para o portal (CondoHUB_Portal)
+        const portalUrl = import.meta.env.VITE_PORTAL_URL || 'http://localhost:3000';
+        window.location.href = portalUrl;
       }, 1500);
     } else {
       setError('E-mail ou senha inválidos');
