@@ -18,6 +18,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { useTheme } from '@/react-app/contexts/ThemeContext';
+import { useServiceCalculation } from '@/react-app/hooks/useServiceCalculation';
 import type { ServiceType, ServiceCategoryType } from '@/shared/types';
 
 interface AdvancedProposalSystemProps {
