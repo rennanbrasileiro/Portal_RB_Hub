@@ -76,6 +76,15 @@ interface AdminContextType {
   toggleSection: (sectionId: string) => void;
   resetToDefaults: () => void;
   isSectionEnabled: (sectionId: string) => boolean;
+  updateHeroConfig: (config: Partial<HeroConfig>) => void;
+  updateColorScheme: (colors: Partial<ColorScheme>) => void;
+  updateSocialMedia: (social: Partial<SiteConfig['socialMedia']>) => void;
+  addTestimonial: (testimonial: SiteConfig['testimonials'][0]) => void;
+  updateTestimonial: (id: string, testimonial: Partial<SiteConfig['testimonials'][0]>) => void;
+  deleteTestimonial: (id: string) => void;
+  addGalleryImage: (image: SiteConfig['gallery']['beforeAfterImages'][0]) => void;
+  updateGalleryImage: (id: string, image: Partial<SiteConfig['gallery']['beforeAfterImages'][0]>) => void;
+  deleteGalleryImage: (id: string) => void;
 }
 
 const DEFAULT_CONFIG: SiteConfig = {
