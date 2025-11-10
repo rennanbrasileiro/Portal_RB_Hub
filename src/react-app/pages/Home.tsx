@@ -189,12 +189,14 @@ export default function Home() {
                 <p className={`text-xs font-medium ${isDark ? 'text-cyan-300' : 'text-cyan-600'}`}>Soluções Integradas</p>
               </div>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               <ThemeToggle />
-              <div className="flex items-center space-x-3">
+              
+              {/* Desktop Navigation */}
+              <div className="hidden lg:flex items-center space-x-3">
                 <button
                   onClick={() => setShowAdvancedProposal(true)}
-                  className={`hidden sm:block px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 ${
+                  className={`px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 ${
                     isDark ? 'hover:shadow-glow' : 'hover:shadow-glow-light'
                   }`}
                   data-testid="catalog-button"
@@ -203,7 +205,7 @@ export default function Home() {
                 </button>
                 <button
                   onClick={() => setShowProposalForm(true)}
-                  className={`hidden md:block px-4 py-3 rounded-full font-semibold transition-all duration-300 ${
+                  className={`px-4 py-3 rounded-full font-semibold transition-all duration-300 ${
                     isDark 
                       ? 'bg-slate-700 text-white hover:bg-slate-600' 
                       : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
@@ -223,7 +225,7 @@ export default function Home() {
                     data-testid="admin-button"
                   >
                     <Settings className="w-4 h-4" />
-                    <span className="hidden lg:inline">Admin</span>
+                    <span>Admin</span>
                   </button>
                 )}
                 {!isAuthenticated && (
@@ -237,10 +239,16 @@ export default function Home() {
                     data-testid="login-button"
                   >
                     <LogIn className="w-4 h-4" />
-                    <span className="hidden lg:inline">Portal</span>
+                    <span>Portal</span>
                   </button>
                 )}
               </div>
+
+              {/* Mobile Menu */}
+              <MobileMenu 
+                onOpenProposal={() => setShowAdvancedProposal(true)}
+                onOpenContact={() => setShowProposalForm(true)}
+              />
             </div>
           </div>
         </div>
