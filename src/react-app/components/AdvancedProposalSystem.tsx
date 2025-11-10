@@ -1299,7 +1299,9 @@ Aguardo retorno para agendamento de visita técnica.
         </div>
 
         {/* Content */}
-        <div className="p-8 overflow-y-auto max-h-[calc(95vh-200px)]">
+        <div className={`p-8 overflow-y-auto max-h-[calc(95vh-200px)] ${
+          isDark ? 'custom-scrollbar' : 'custom-scrollbar-light'
+        }`}>
           {renderStepContent()}
         </div>
 
