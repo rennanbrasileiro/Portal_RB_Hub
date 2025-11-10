@@ -4,14 +4,9 @@ import { useTheme } from '@/react-app/contexts/ThemeContext';
 import { calculateServicePrice } from '@/react-app/hooks/useServiceCalculation';
 import type { ServiceType } from '@/shared/types';
 
-interface ServiceOption {
-  id: string;
-  name: string;
+interface ServiceOption extends ServiceType {
   icon: React.ElementType;
-  basePrice: number;
   description: string;
-  isRecurring: boolean;
-  unit: 'monthly' | 'one_time';
 }
 
 const services: ServiceOption[] = [
@@ -21,8 +16,11 @@ const services: ServiceOption[] = [
     icon: Building2,
     basePrice: 3500,
     description: 'Gestão completa e certificada',
+    category: 'sindico_professional',
+    isPredefined: false,
     isRecurring: true,
-    unit: 'monthly'
+    unit: 'monthly',
+    tags: ['gestão', 'síndico']
   },
   {
     id: 'manutencao',
@@ -30,8 +28,11 @@ const services: ServiceOption[] = [
     icon: Wrench,
     basePrice: 1200,
     description: 'Hidráulica, elétrica e geral',
+    category: 'maintenance_facilities',
+    isPredefined: false,
     isRecurring: true,
-    unit: 'monthly'
+    unit: 'monthly',
+    tags: ['manutenção']
   },
   {
     id: 'pintura',
@@ -39,8 +40,11 @@ const services: ServiceOption[] = [
     icon: Paintbrush,
     basePrice: 25000,
     description: 'Fachada e áreas comuns',
+    category: 'maintenance_facilities',
+    isPredefined: false,
     isRecurring: false,
-    unit: 'one_time'
+    unit: 'one_time',
+    tags: ['pintura']
   },
   {
     id: 'zeladoria',
@@ -48,8 +52,11 @@ const services: ServiceOption[] = [
     icon: Users,
     basePrice: 2800,
     description: 'Equipe treinada 24h',
+    category: 'maintenance_facilities',
+    isPredefined: false,
     isRecurring: true,
-    unit: 'monthly'
+    unit: 'monthly',
+    tags: ['zeladoria']
   },
   {
     id: 'seguranca',
@@ -57,8 +64,11 @@ const services: ServiceOption[] = [
     icon: Shield,
     basePrice: 4500,
     description: 'CFTV, alarmes e controle',
+    category: 'security_automation',
+    isPredefined: false,
     isRecurring: true,
-    unit: 'monthly'
+    unit: 'monthly',
+    tags: ['segurança']
   }
 ];
 
@@ -76,7 +86,7 @@ export default function BudgetCalculator() {
   };
 
   const getServicePrice = (service: ServiceOption) => {
-    return calculateServicePrice(service as ServiceType, units);
+    return calculateServicePrice(service, units);
   };
 
   const calculateTotal = () => {
