@@ -38,18 +38,8 @@ interface AdvancedProposalSystemProps {
 }
 
 // Services data imported from shared file
-  // Predefined Professional Sindico Services
-  {
-    id: 'gestao_administrativa',
-    name: 'Gestão Administrativa e Financeira',
-    category: 'sindico_professional',
-    description: 'Administração completa dos recursos e operações',
-    isPredefined: true,
-    isRecurring: true,
-    unit: 'monthly',
-    basePrice: 2500,
-    tags: ['gestão', 'administrativo', 'financeiro']
-  },
+
+export default function AdvancedProposalSystem({ onClose }: AdvancedProposalSystemProps) {
   {
     id: 'prestacao_contas',
     name: 'Prestação de Contas e Balancetes',
