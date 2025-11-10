@@ -46,7 +46,7 @@ export default function AdvancedProposalSystem({ onClose }: AdvancedProposalSyst
   const [selectedCategory, setSelectedCategory] = useState<ServiceCategoryType | 'all'>('all');
   const [keepProfessionalSindico, setKeepProfessionalSindico] = useState(true);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
-  const [condominiumUnits, setCondominiumUnits] = useState(20);
+  const [condominiumUnits, setCondominiumUnits] = useState(10);
   const [formData, setFormData] = useState({
     clientName: '',
     clientEmail: '',
