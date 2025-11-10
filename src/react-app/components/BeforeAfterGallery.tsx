@@ -1,47 +1,16 @@
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight, Eye, TrendingUp } from 'lucide-react';
 import { useTheme } from '@/react-app/contexts/ThemeContext';
-
-const transformations = [
-  {
-    id: 1,
-    title: 'Edifício Solar - Revitalização Completa',
-    location: 'Boa Viagem, Recife',
-    before: 'https://images.unsplash.com/photo-1555636222-cae831e670b3?w=500&h=400&fit=crop',
-    after: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=500&h=400&fit=crop',
-    services: ['Pintura de Fachada', 'Impermeabilização', 'Paisagismo'],
-    results: ['Valorização de 15%', 'Economia 30% energia', 'Satisfação 98%'],
-    investment: 'R$ 85.000',
-    duration: '21 dias'
-  },
-  {
-    id: 2,
-    title: 'Residencial Gardens - Modernização',
-    location: 'Imbiribeira, Recife',
-    before: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=500&h=400&fit=crop',
-    after: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=500&h=400&fit=crop',
-    services: ['Automação Predial', 'CFTV HD', 'LED Inteligente'],
-    results: ['Segurança 100%', 'Economia 40% energia', 'Tecnologia avançada'],
-    investment: 'R$ 120.000',
-    duration: '30 dias'
-  },
-  {
-    id: 3,
-    title: 'Condomínio Premium - Gestão Total',
-    location: 'Pina, Recife',
-    before: 'https://images.unsplash.com/photo-1549317336-206569e8475c?w=500&h=400&fit=crop',
-    after: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=500&h=400&fit=crop',
-    services: ['Síndico Profissional', 'Zeladoria 24h', 'Manutenção Preventiva'],
-    results: ['Inadimplência 0%', 'Custos -25%', 'Transparência total'],
-    investment: 'R$ 8.500/mês',
-    duration: 'Gestão contínua'
-  }
-];
+import { useAdmin } from '@/react-app/contexts/AdminContext';
 
 export default function BeforeAfterGallery() {
+  const { isDark } = useTheme();
+  const { siteConfig } = useAdmin();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showBefore, setShowBefore] = useState(true);
-  const { isDark } = useTheme();
+  
+  // Usar imagens do AdminContext
+  const transformations = siteConfig.gallery.beforeAfterImages;
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % transformations.length);
