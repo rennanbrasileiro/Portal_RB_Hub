@@ -242,7 +242,20 @@ export default function Home() {
                     <span>Admin</span>
                   </button>
                 )}
-                {!isAuthenticated && (
+                {isAuthenticated ? (
+                  <button
+                    onClick={() => window.location.href = import.meta.env.VITE_PORTAL_URL || 'http://localhost:3000'}
+                    className={`px-4 py-3 rounded-full font-semibold transition-all duration-300 flex items-center space-x-2 hover:scale-105 ${
+                      isDark 
+                        ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:shadow-glow' 
+                        : 'bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:shadow-glow-light'
+                    }`}
+                    data-testid="portal-button"
+                  >
+                    <Building2 className="w-4 h-4" />
+                    <span>Ir para Portal</span>
+                  </button>
+                ) : (
                   <button
                     onClick={() => navigate('/login')}
                     className={`px-4 py-3 rounded-full font-semibold transition-all duration-300 flex items-center space-x-2 ${
@@ -253,7 +266,7 @@ export default function Home() {
                     data-testid="login-button"
                   >
                     <LogIn className="w-4 h-4" />
-                    <span>Portal</span>
+                    <span>Fazer Login</span>
                   </button>
                 )}
               </div>
