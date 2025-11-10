@@ -797,12 +797,12 @@ Aguardo retorno para agendamento de visita técnica.
         </div>
 
         {/* Content */}
-        <div className="p-8 overflow-y-auto max-h-[calc(95vh-200px)]">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-8 scrollbar-thin scrollbar-thumb-cyan-500/50 scrollbar-track-transparent">
           {renderStepContent()}
         </div>
 
         {/* Footer */}
-        <div className={`sticky bottom-0 border-t p-6 ${
+        <div className={`border-t p-4 sm:p-6 ${
           isDark ? 'bg-slate-900 border-slate-700' : 'bg-white border-gray-200'
         }`}>
           <div className="flex items-center justify-between">
