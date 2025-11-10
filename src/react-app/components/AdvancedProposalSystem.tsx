@@ -15,10 +15,23 @@ import {
   Lightbulb,
   ClipboardList,
   MessageSquare,
-  ArrowRight
+  ArrowRight,
+  Save,
+  History,
+  TrendingUp,
+  Calendar,
+  Loader2
 } from 'lucide-react';
 import { useTheme } from '@/react-app/contexts/ThemeContext';
+import { useProposals } from '@/react-app/contexts/ProposalContext';
+import { useToast } from '@/react-app/hooks/useToast';
+import { ToastContainer } from '@/react-app/components/ToastNotification';
+import SmartSuggestions from '@/react-app/components/SmartSuggestions';
+import ROICalculator from '@/react-app/components/ROICalculator';
+import ProposalTimeline from '@/react-app/components/ProposalTimeline';
+import ProposalHistory from '@/react-app/components/ProposalHistory';
 import type { ServiceType, ServiceCategoryType } from '@/shared/types';
+import { serviceCategories, allServices } from '@/shared/servicesData';
 
 interface AdvancedProposalSystemProps {
   onClose: () => void;
