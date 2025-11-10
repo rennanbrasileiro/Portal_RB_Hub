@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Calculator, Building2, Users, Wrench, Paintbrush, Shield, FileText, ArrowRight } from 'lucide-react';
 import { useTheme } from '@/react-app/contexts/ThemeContext';
+import { calculateServicePrice } from '@/react-app/hooks/useServiceCalculation';
+import type { ServiceType } from '@/shared/types';
 
 interface ServiceOption {
   id: string;
@@ -8,6 +10,8 @@ interface ServiceOption {
   icon: React.ElementType;
   basePrice: number;
   description: string;
+  isRecurring: boolean;
+  unit: 'monthly' | 'one_time';
 }
 
 const services: ServiceOption[] = [
@@ -16,71 +20,52 @@ const services: ServiceOption[] = [
     name: 'Síndico Profissional',
     icon: Building2,
     basePrice: 3500,
-    description: 'Gestão completa e certificada'
+    description: 'Gestão completa e certificada',
+    isRecurring: true,
+    unit: 'monthly'
   },
   {
     id: 'manutencao',
     name: 'Manutenção Preventiva',
     icon: Wrench,
     basePrice: 1200,
-    description: 'Hidráulica, elétrica e geral'
+    description: 'Hidráulica, elétrica e geral',
+    isRecurring: true,
+    unit: 'monthly'
   },
   {
     id: 'pintura',
     name: 'Pintura e Reforma',
     icon: Paintbrush,
     basePrice: 25000,
-    description: 'Fachada e áreas comuns'
+    description: 'Fachada e áreas comuns',
+    isRecurring: false,
+    unit: 'one_time'
   },
   {
     id: 'zeladoria',
     name: 'Zeladoria Qualificada',
     icon: Users,
     basePrice: 2800,
-    description: 'Equipe treinada 24h'
+    description: 'Equipe treinada 24h',
+    isRecurring: true,
+    unit: 'monthly'
   },
   {
     id: 'seguranca',
     name: 'Segurança Integrada',
     icon: Shield,
     basePrice: 4500,
-    description: 'CFTV, alarmes e controle'
+    description: 'CFTV, alarmes e controle',
+    isRecurring: true,
+    unit: 'monthly'
   }
 ];
 
 export default function BudgetCalculator() {
   const [units, setUnits] = useState(20);
   const [selectedServices, setSelectedServices] = useState<string[]>(['sindico']);
-  const [total, setTotal] = useState(0);
   const { isDark } = useTheme();
-
-  useEffect(() => {
-    const calculateTotal = () => {
-      let sum = 0;
-      selectedServices.forEach(serviceId => {
-        const service = services.find(s => s.id === serviceId);
-        if (service) {
-          let price = service.basePrice;
-          
-          // Ajustar preço baseado no número de unidades
-          if (serviceId === 'sindico' || serviceId === 'zeladoria') {
-            price = price + (units * 25); // Mensal
-          } else if (serviceId === 'manutencao') {
-            price = price + (units * 15); // Mensal
-          } else if (serviceId === 'seguranca') {
-            price = price + (units * 30); // Mensal
-          } else if (serviceId === 'pintura') {
-            price = price + (units * 150); // Único
-          }
-          
-          sum += price;
-        }
-      });
-      setTotal(sum);
-    };
-
-    calculateTotal();
-  }, [units, selectedServices]);
 
   const toggleService = (serviceId: string) => {
     setSelectedServices(prev => 
@@ -91,18 +76,21 @@ export default function BudgetCalculator() {
   };
 
   const getServicePrice = (service: ServiceOption) => {
-    let price = service.basePrice;
-    if (service.id === 'sindico' || service.id === 'zeladoria') {
-      price = price + (units * 25);
-    } else if (service.id === 'manutencao') {
-      price = price + (units * 15);
-    } else if (service.id === 'seguranca') {
-      price = price + (units * 30);
-    } else if (service.id === 'pintura') {
-      price = price + (units * 150);
-    }
-    return price;
+    return calculateServicePrice(service as ServiceType, units);
   };
+
+  const calculateTotal = () => {
+    let sum = 0;
+    selectedServices.forEach(serviceId => {
+      const service = services.find(s => s.id === serviceId);
+      if (service) {
+        sum += getServicePrice(service);
+      }
+    });
+    return sum;
+  };
+
+  const total = calculateTotal();
 
   const isServiceRecurring = (serviceId: string) => {
     return ['sindico', 'manutencao', 'zeladoria', 'seguranca'].includes(serviceId);
