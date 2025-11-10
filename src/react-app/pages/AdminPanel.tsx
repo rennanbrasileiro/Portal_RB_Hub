@@ -21,7 +21,8 @@ import {
   Share2,
   Sparkles,
   Plus,
-  Trash2
+  Trash2,
+  HelpCircle
 } from 'lucide-react';
 import { useAuth } from '@/react-app/contexts/AuthContext';
 import { useAdmin } from '@/react-app/contexts/AdminContext';
