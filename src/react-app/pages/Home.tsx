@@ -191,22 +191,52 @@ export default function Home() {
               <div className="flex items-center space-x-3">
                 <button
                   onClick={() => setShowAdvancedProposal(true)}
-                  className={`px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 ${
+                  className={`hidden sm:block px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 ${
                     isDark ? 'hover:shadow-glow' : 'hover:shadow-glow-light'
                   }`}
+                  data-testid="catalog-button"
                 >
                   Catálogo & Orçamento
                 </button>
                 <button
                   onClick={() => setShowProposalForm(true)}
-                  className={`px-4 py-3 rounded-full font-semibold transition-all duration-300 ${
+                  className={`hidden md:block px-4 py-3 rounded-full font-semibold transition-all duration-300 ${
                     isDark 
                       ? 'bg-slate-700 text-white hover:bg-slate-600' 
                       : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
                   }`}
+                  data-testid="quick-contact-button"
                 >
                   Contato Rápido
                 </button>
+                {isMaster && (
+                  <button
+                    onClick={() => navigate('/admin')}
+                    className={`px-4 py-3 rounded-full font-semibold transition-all duration-300 flex items-center space-x-2 ${
+                      isDark 
+                        ? 'bg-purple-500/20 text-purple-400 hover:bg-purple-500/30' 
+                        : 'bg-purple-100 text-purple-700 hover:bg-purple-200'
+                    }`}
+                    data-testid="admin-button"
+                  >
+                    <Settings className="w-4 h-4" />
+                    <span className="hidden lg:inline">Admin</span>
+                  </button>
+                )}
+                {!isAuthenticated && (
+                  <button
+                    onClick={() => navigate('/login')}
+                    className={`px-4 py-3 rounded-full font-semibold transition-all duration-300 flex items-center space-x-2 ${
+                      isDark 
+                        ? 'bg-slate-700 text-white hover:bg-slate-600' 
+                        : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                    }`}
+                    data-testid="login-button"
+                  >
+                    <LogIn className="w-4 h-4" />
+                    <span className="hidden lg:inline">Portal</span>
+                  </button>
+                )}
               </div>
             </div>
           </div>
