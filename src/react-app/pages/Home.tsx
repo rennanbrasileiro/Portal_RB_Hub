@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import { useToast } from '@/react-app/hooks/useToast';
 import { ToastContainer } from '@/react-app/components/ToastNotification';
+import { useAuth } from '@/react-app/contexts/AuthContext';
+import { useAdmin } from '@/react-app/contexts/AdminContext';
 import { 
   Building2, 
   Shield, 
