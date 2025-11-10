@@ -161,8 +161,12 @@ export default function AdminPanel() {
         <div className="flex flex-wrap gap-2 mb-8">
           {[
             { id: 'general', label: 'Configurações Gerais', icon: Settings },
+            { id: 'hero', label: 'Hero & Visual', icon: Sparkles },
             { id: 'sections', label: 'Seções do Site', icon: ToggleLeft },
-            { id: 'services', label: 'Serviços e Preços', icon: DollarSign }
+            { id: 'services', label: 'Serviços e Preços', icon: DollarSign },
+            { id: 'gallery', label: 'Galeria', icon: ImageIcon },
+            { id: 'testimonials', label: 'Depoimentos', icon: Star },
+            { id: 'social', label: 'Redes Sociais & SEO', icon: Share2 }
           ].map(tab => {
             const Icon = tab.icon;
             return (
