@@ -40,8 +40,110 @@ interface AdvancedProposalSystemProps {
 // Services data imported from shared file
 
 export default function AdvancedProposalSystem({ onClose }: AdvancedProposalSystemProps) {
-  {
-    id: 'prestacao_contas',
+  const { isDark } = useTheme();
+  const { saveProposal, saveDraft, loadDraft, clearDraft } = useProposals();
+  const toast = useToast();
+  
+  const [step, setStep] = useState(1);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<ServiceCategoryType | 'all'>('all');
+  const [keepProfessionalSindico, setKeepProfessionalSindico] = useState(true);
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
+  const [condominiumUnits, setCondominiumUnits] = useState(20);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [showHistory, setShowHistory] = useState(false);
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+  const [formData, setFormData] = useState({
+    clientName: '',
+    clientEmail: '',
+    clientPhone: '',
+    condominiumName: '',
+    condominiumAddress: '',
+    message: ''
+  });
+
+  // Auto-save draft every 30 seconds
+  useEffect(() => {
+    const autoSaveInterval = setInterval(() => {
+      if (selectedServices.length > 0 || formData.clientName) {
+        saveDraft({
+          keepProfessionalSindico,
+          selectedServices,
+          condominiumUnits,
+          formData,
+          totalEstimate,
+          status: 'draft'
+        });
+      }
+    }, 30000);
+
+    return () => clearInterval(autoSaveInterval);
+  }, [selectedServices, condominiumUnits, formData, keepProfessionalSindico]);
+
+  // Load draft on mount
+  useEffect(() => {
+    const draft = loadDraft();
+    if (draft && window.confirm('Encontramos um rascunho salvo. Deseja continuar de onde parou?')) {
+      setKeepProfessionalSindico(draft.keepProfessionalSindico);
+      setSelectedServices(draft.selectedServices);
+      setCondominiumUnits(draft.condominiumUnits);
+      setFormData(draft.formData);
+      toast.info('Rascunho carregado com sucesso!');
+    }
+  }, []);
+
+  // Initialize with predefined services if keeping professional sindico
+  useEffect(() => {
+    if (keepProfessionalSindico) {
+      const predefinedServices = allServices
+        .filter(service => service.isPredefined)
+        .map(service => service.id);
+      setSelectedServices(prev => [...new Set([...prev, ...predefinedServices])]);
+    } else {
+      const predefinedServices = allServices
+        .filter(service => service.isPredefined)
+        .map(service => service.id);
+      setSelectedServices(prev => prev.filter(id => !predefinedServices.includes(id)));
+    }
+  }, [keepProfessionalSindico]);
+
+  // Validate form
+  const validateForm = () => {
+    const errors: Record<string, string> = {};
+    
+    if (!formData.clientName.trim()) {
+      errors.clientName = 'Nome é obrigatório';
+    }
+    if (!formData.clientEmail.trim()) {
+      errors.clientEmail = 'E-mail é obrigatório';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.clientEmail)) {
+      errors.clientEmail = 'E-mail inválido';
+    }
+    if (!formData.clientPhone.trim()) {
+      errors.clientPhone = 'Telefone é obrigatório';
+    } else if (formData.clientPhone.replace(/\D/g, '').length < 10) {
+      errors.clientPhone = 'Telefone inválido';
+    }
+    if (!formData.condominiumName.trim()) {
+      errors.condominiumName = 'Nome do condomínio é obrigatório';
+    }
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  // Handle service addition from suggestions
+  const handleAddServiceFromSuggestion = (serviceId: string) => {
+    if (!selectedServices.includes(serviceId)) {
+      setSelectedServices(prev => [...prev, serviceId]);
+      toast.success('Serviço adicionado às sugestões!');
+    }
+  };
+
+  // Filter services based on search and category
+  const filteredServices = useMemo(() => {
+    return allServices.filter(service => {
     name: 'Prestação de Contas e Balancetes',
     category: 'sindico_professional',
     description: 'Relatórios financeiros mensais e transparência total',
