@@ -167,6 +167,7 @@ export default function AdminPanel() {
             { id: 'services', label: 'Serviços e Preços', icon: DollarSign },
             { id: 'gallery', label: 'Galeria', icon: ImageIcon },
             { id: 'testimonials', label: 'Depoimentos', icon: Star },
+            { id: 'faq', label: 'FAQ', icon: HelpCircle },
             { id: 'social', label: 'Redes Sociais & SEO', icon: Share2 }
           ].map(tab => {
             const Icon = tab.icon;
