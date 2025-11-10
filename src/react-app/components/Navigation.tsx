@@ -13,7 +13,14 @@ interface NavigationProps {
 
 export default function Navigation({ scrolled, onOpenProposal, onOpenContact }: NavigationProps) {
   const { isDark } = useTheme();
+  const { isAuthenticated, isMaster, logout } = useAuth();
+  const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleLogout = () => {
+    logout();
+    setMobileMenuOpen(false);
+  };
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
