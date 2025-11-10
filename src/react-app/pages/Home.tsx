@@ -151,58 +151,17 @@ export default function Home() {
   ];
 
   return (
-    <div className={`min-h-screen transition-all duration-500 ${
+    <div id="top" className={`min-h-screen transition-all duration-500 ${
       isDark 
         ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950' 
         : 'bg-gradient-to-br from-gray-50 via-white to-cyan-50'
     }`}>
-      {/* Header */}
-      <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled 
-          ? isDark 
-            ? 'glass-effect shadow-2xl' 
-            : 'glass-effect-light shadow-xl border-b border-gray-200/50'
-          : 'bg-transparent'
-      }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            <div className="flex items-center space-x-4">
-              <img 
-                src="https://mocha-cdn.com/019a4c3a-1129-78a3-9d58-262da3722e9c/rb-hub-logo.png" 
-                alt="RB HUB" 
-                className="h-12 w-auto drop-shadow-2xl"
-              />
-              <div>
-                <h1 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>RB HUB</h1>
-                <p className={`text-xs font-medium ${isDark ? 'text-cyan-300' : 'text-cyan-600'}`}>Soluções Integradas</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-4">
-              <ThemeToggle />
-              <div className="flex items-center space-x-3">
-                <button
-                  onClick={() => setShowAdvancedProposal(true)}
-                  className={`px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 ${
-                    isDark ? 'hover:shadow-glow' : 'hover:shadow-glow-light'
-                  }`}
-                >
-                  Catálogo & Orçamento
-                </button>
-                <button
-                  onClick={() => setShowProposalForm(true)}
-                  className={`px-4 py-3 rounded-full font-semibold transition-all duration-300 ${
-                    isDark 
-                      ? 'bg-slate-700 text-white hover:bg-slate-600' 
-                      : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
-                  }`}
-                >
-                  Contato Rápido
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      {/* Navigation */}
+      <Navigation 
+        scrolled={scrolled}
+        onOpenProposal={() => setShowAdvancedProposal(true)}
+        onOpenContact={() => setShowProposalForm(true)}
+      />
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
